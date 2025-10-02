@@ -832,6 +832,200 @@ p {
 
 
 
+.skills {
+    padding: var(--space-3xl) 0;
+    background: var(--bg-secondary);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-xl);
+}
+
+.skill-card {
+    background: var(--bg-card);
+    padding: var(--space-xl);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-2xl);
+}
+
+.skill-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-xl);
+    background: var(--bg-tertiary);
+    color: var(--primary-color);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-lg);
+}
+
+.gradient-icon {
+    background: var(--gradient-secondary);
+    color: var(--text-white);
+    box-shadow: var(--shadow-md);
+}
+
+.skill-card h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.skill-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.education {
+    padding: var(--space-3xl) 0;
+    background: var(--bg-primary);
+}
+
+.education-timeline {
+    position: relative;
+    display: grid;
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+}
+
+.education-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 26px;
+    width: 2px;
+    background: var(--gradient-primary);
+}
+
+.education-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-lg);
+    position: relative;
+}
+
+.education-item::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--text-white);
+    border: 3px solid var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.education-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: var(--font-size-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.education-content {
+    background: var(--bg-card);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.education-period {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: var(--space-xs);
+}
+
+.education-content h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.education-content p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.certifications {
+    padding: var(--space-3xl) 0;
+    background: var(--bg-secondary);
+}
+
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+}
+
+.certification-card {
+    display: flex;
+    gap: var(--space-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.certification-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-2xl);
+}
+
+.certification-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-xl);
+    background: var(--gradient-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-white);
+    font-size: var(--font-size-2xl);
+    box-shadow: var(--shadow-md);
+}
+
+.certification-body h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+}
+
+.certification-issuer {
+    display: block;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.certification-body p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
 /* Projects Section */
 .projects {
     padding: var(--space-3xl) 0;
@@ -1434,6 +1628,14 @@ p {
     .projects-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .education-item {
+        grid-template-columns: 70px 1fr;
+    }
 }
 
 @media (max-width: 900px) {
@@ -1571,6 +1773,46 @@ p {
     
     .project-image {
         height: 180px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-card {
+        text-align: center;
+    }
+
+    .education-timeline {
+        margin-top: var(--space-xl);
+    }
+
+    .education-timeline::before {
+        left: 18px;
+    }
+
+    .education-item {
+        grid-template-columns: 1fr;
+        padding-left: var(--space-xl);
+    }
+
+    .education-item::before {
+        left: 12px;
+    }
+
+    .education-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .certifications-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .certification-card {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
     }
 }
 
@@ -1711,5 +1953,40 @@ p {
     
     .project-image {
         height: 160px;
+    }
+
+    .skills-grid {
+        gap: var(--space-lg);
+    }
+
+    .skill-card {
+        padding: var(--space-lg);
+    }
+
+    .education-timeline::before {
+        left: 10px;
+    }
+
+    .education-item {
+        padding-left: var(--space-lg);
+    }
+
+    .education-item::before {
+        left: 4px;
+    }
+
+    .education-icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    .certification-card {
+        padding: var(--space-md);
+    }
+
+    .certification-icon {
+        width: 52px;
+        height: 52px;
+        font-size: var(--font-size-xl);
     }
 }
