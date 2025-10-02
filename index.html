@@ -1,39 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomas Perticaro - Estudiante de IT</title>
     <meta name="description" content="Portfolio profesional de Tomas Perticaro, estudiante de IT especializado en Cloud Computing y DevOps.">
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e3a8a'
+                        },
+                        accent: '#06b6d4'
+                    },
+                    boxShadow: {
+                        soft: '0 20px 45px -15px rgba(15, 23, 42, 0.35)',
+                        glow: '0 25px 65px -20px rgba(14, 165, 233, 0.45)'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header class="site-header">
-        <nav class="nav" aria-label="Principal">
-            <div class="container nav-container">
-                <a href="#hero" class="nav-logo">TP</a>
-                <div class="nav-menu" id="navMenu">
-                    <a href="#about" class="nav-link">Sobre mí</a>
-                    <a href="#projects" class="nav-link">Proyectos</a>
-                    <a href="#contact" class="nav-link">Contacto</a>
-                </div>
-                <div class="nav-actions">
-                    <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">LinkedIn</a>
-                    <button class="hamburger" id="navToggle" type="button" aria-label="Abrir menú" aria-controls="navMenu" aria-expanded="false">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+<body class="font-inter bg-slate-950 text-slate-100">
+    <header class="site-header sticky top-0 z-50">
+        <nav class="nav container-xl mx-auto flex items-center justify-between gap-6 rounded-full bg-slate-900/80 px-6 py-4 shadow-soft backdrop-blur" aria-label="Principal">
+            <a href="#hero" class="nav-logo flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-lg font-semibold text-white shadow-glow transition-transform duration-300 hover:scale-105">TP</a>
+            <div class="nav-menu hidden w-full flex-col items-start gap-4 rounded-2xl border border-white/10 bg-slate-900/95 p-6 text-sm font-medium text-slate-100 shadow-soft transition-all duration-300 lg:flex lg:w-auto lg:flex-1 lg:flex-row lg:items-center lg:justify-end lg:gap-6 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none" id="navMenu">
+                <a href="#about" class="nav-link nav-link-underline w-full rounded-xl px-4 py-2 transition-all duration-300 hover:bg-white/5 lg:w-auto lg:rounded-full">Sobre mí</a>
+                <a href="#skills" class="nav-link nav-link-underline w-full rounded-xl px-4 py-2 transition-all duration-300 hover:bg-white/5 lg:w-auto lg:rounded-full">Habilidades</a>
+                <a href="#education" class="nav-link nav-link-underline w-full rounded-xl px-4 py-2 transition-all duration-300 hover:bg-white/5 lg:w-auto lg:rounded-full">Educación</a>
+                <a href="#projects" class="nav-link nav-link-underline w-full rounded-xl px-4 py-2 transition-all duration-300 hover:bg-white/5 lg:w-auto lg:rounded-full">Proyectos</a>
+                <a href="#certifications" class="nav-link nav-link-underline w-full rounded-xl px-4 py-2 transition-all duration-300 hover:bg-white/5 lg:w-auto lg:rounded-full">Certificaciones</a>
+                <a href="#contact" class="nav-link nav-link-underline w-full rounded-xl px-4 py-2 transition-all duration-300 hover:bg-white/5 lg:w-auto lg:rounded-full">Contacto</a>
+            </div>
+            <div class="nav-actions flex items-center gap-3">
+                <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="btn btn-secondary btn-sm rounded-full bg-gradient-to-r from-brand-500 to-accent px-4 py-2 text-sm font-semibold text-white shadow-soft transition-transform duration-300 hover:scale-105 hover:shadow-glow">LinkedIn</a>
+                <button class="hamburger inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-slate-800/80 transition-all duration-300 hover:scale-105 hover:border-accent lg:hidden" id="navToggle" type="button" aria-label="Abrir menú" aria-controls="navMenu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </nav>
     </header>
 
     <main>
-        <section id="hero" class="hero">
-            <div class="hero-background">
+        <section id="hero" class="hero relative overflow-hidden">
+            <div class="hero-background absolute inset-0">
                 <div class="particles-container" id="particles"></div>
                 <div class="floating-shapes">
                     <div class="shape shape-1"></div>
@@ -42,51 +68,54 @@
                     <div class="shape shape-4"></div>
                 </div>
             </div>
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <div class="hero-badge">
-                        <i class="fas fa-cloud"></i>
+            <div class="relative mx-auto flex min-h-[90vh] max-w-6xl flex-col items-center justify-center gap-16 px-6 pt-24 pb-36 md:flex-row md:items-center">
+                <div class="hero-text fade-in z-10 flex flex-1 flex-col gap-8 rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft backdrop-blur">
+                    <div class="hero-badge inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold tracking-wide text-slate-100 shadow-soft">
+                        <i class="fas fa-cloud text-accent"></i>
                         <span>Estudiante IT | Cloud & DevOps</span>
                     </div>
-                    <h1 class="hero-title">
-                        Aprendiendo y construyendo en <span class="gradient-text">Cloud & DevOps</span>
+                    <h1 class="hero-title text-4xl font-extrabold leading-tight md:text-5xl lg:text-6xl">
+                        Aprendiendo y construyendo en <span class="gradient-text">Cloud &amp; DevOps</span>
                     </h1>
-                    <p class="hero-description">
+                    <p class="hero-description max-w-xl text-lg text-slate-300">
                         Estudiante de IT en constante aprendizaje, explorando Cloud Computing y DevOps, con interés en el diseño de infraestructuras escalables y automatizadas en la nube.
                     </p>
-
-                    <div class="hero-presentation">
-                        <div class="profile-image-container">
-                            <img src="imagenes/imagenes-desarrolladores/boy.png" alt="Ilustración de Tomas Perticaro" class="profile-image">
-                            <div class="profile-border"></div>
+                    <div class="hero-presentation flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+                        <div class="profile-image-container relative">
+                            <div class="profile-border absolute inset-0 -rotate-6 rounded-3xl bg-gradient-to-br from-brand-500 via-accent to-emerald-300 opacity-70 blur-sm"></div>
+                            <img src="imagenes/imagenes-desarrolladores/boy.png" alt="Ilustración de Tomas Perticaro" class="profile-image relative z-10 h-28 w-28 rounded-3xl border-4 border-white/10 object-cover shadow-glow">
                         </div>
                         <div class="profile-info">
-                            <h2 class="profile-name">Tomas Perticaro</h2>
-                            <p class="profile-title">Estudiante IT</p>
+                            <h2 class="profile-name text-2xl font-semibold">Tomas Perticaro</h2>
+                            <p class="profile-title text-slate-400">Estudiante IT</p>
                         </div>
                     </div>
-
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary btn-lg" onclick="scrollToSection('projects')">
+                    <div class="hero-buttons flex flex-wrap gap-4">
+                        <button class="btn btn-primary btn-lg inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 px-6 py-3 text-base font-semibold text-white shadow-glow transition-transform duration-300 hover:scale-105" onclick="scrollToSection('projects')">
                             <i class="fas fa-rocket"></i>
                             Ver Proyectos
                         </button>
-                        <button class="btn btn-outline btn-lg" onclick="scrollToSection('contact')">
+                        <a class="btn btn-secondary btn-lg inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-800/80 px-6 py-3 text-base font-semibold text-white shadow-soft transition-transform duration-300 hover:scale-105 hover:bg-slate-800" href="assets/TomasPerticaro-CV.pdf" download>
+                            <i class="fas fa-file-download"></i>
+                            Descargar CV
+                        </a>
+                        <button class="btn btn-outline btn-lg inline-flex items-center gap-2 rounded-full border border-accent/60 px-6 py-3 text-base font-semibold text-accent transition-all duration-300 hover:scale-105 hover:border-accent hover:bg-accent/10" onclick="scrollToSection('contact')">
                             <i class="fas fa-envelope"></i>
                             Contactar
                         </button>
                     </div>
                 </div>
-                <div class="hero-visual fade-in-delay">
-                    <div class="floating-card">
-                        <div class="card-header">
-                            <div class="card-dots">
+                <div class="hero-visual fade-in-delay relative flex flex-1 justify-center">
+                    <div class="floating-card relative w-full max-w-md rounded-3xl border border-white/10 bg-slate-900/80 p-6 shadow-glow backdrop-blur">
+                        <div class="card-header mb-4 flex items-center justify-between">
+                            <div class="card-dots flex items-center gap-2">
                                 <span></span>
                                 <span></span>
                                 <span></span>
                             </div>
+                            <span class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">DevOps</span>
                         </div>
-                        <div class="code-snippet">
+                        <div class="code-snippet space-y-2 rounded-2xl bg-slate-900/80 p-4 text-sm font-mono text-slate-300 shadow-inner">
                             <div class="code-line"><span class="keyword">class</span> <span class="class-name">CloudEngineer</span> {</div>
                             <div class="code-line">  <span class="property">constructor</span>() {</div>
                             <div class="code-line">    this.stack = ['AWS', 'Docker', 'Kubernetes'];</div>
@@ -97,7 +126,7 @@
                             <div class="code-line">  }</div>
                             <div class="code-line">}</div>
                         </div>
-                        <div class="tech-stack">
+                        <div class="tech-stack mt-6 grid grid-cols-3 gap-4">
                             <div class="tech-item" data-tech="AWS">
                                 <i class="fab fa-aws"></i>
                             </div>
@@ -117,19 +146,20 @@
             </div>
         </section>
 
-        <section id="about" class="about">
-            <div class="container">
-                <div class="section-header">
+        <section id="about" class="about relative overflow-hidden py-24">
+            <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+            <div class="container-xl mx-auto px-4">
+                <div class="section-header text-center">
                     <span class="section-badge">Sobre mí</span>
-                    <h2 class="section-title">Enfocado en crecer como profesional en Cloud y DevOps</h2>
+                    <h2 class="section-title text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-brand-500 via-accent to-emerald-400 bg-clip-text drop-shadow-[0_0_18px_rgba(14,165,233,0.35)] md:text-5xl">Enfocado en crecer como profesional en Cloud y DevOps</h2>
                     <p class="section-subtitle">En constante aprendizaje, combinando estudios formales y proyectos prácticos para desarrollarme en tecnología cloud y automatización.</p>
                 </div>
-                <div class="about-content">
-                    <div class="about-card scroll-animate">
-                        <p class="about-description">
+                <div class="about-content mt-16 grid gap-10 md:grid-cols-2">
+                    <div class="about-card scroll-animate flex flex-col gap-8 rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft backdrop-blur">
+                        <p class="about-description text-lg text-slate-300">
                             Actualmente estudio IT con foco en Cloud Computing y DevOps. He desarrollado proyectos académicos aplicando infraestructura como código, contenedores y despliegues automatizados.
                         </p>
-                        <div class="about-highlights">
+                        <div class="about-highlights grid gap-4">
                             <div class="highlight-item">
                                 <i class="fas fa-check-circle"></i>
                                 <span>Experiencia con AWS, Docker y Kubernetes</span>
@@ -148,9 +178,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="about-card scroll-animate">
-                        <h3>Recorrido reciente</h3>
-                        <div class="experience-timeline">
+                    <div class="about-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft backdrop-blur">
+                        <h3 class="mb-6 text-2xl font-semibold text-white">Recorrido reciente</h3>
+                        <div class="experience-timeline flex flex-col gap-6">
                             <div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="timeline-content">
@@ -168,7 +198,7 @@
                             <div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <div class="timeline-content">
-                                    <h3>Bootcamp Blockstellart Cloud Computing & DevOps</h3>
+                                    <h3>Bootcamp Blockstellart Cloud Computing &amp; DevOps</h3>
                                     <p>Formación intensiva con proyectos prácticos. Módulos: Introducción a Cloud Computing, Infraestructura global de AWS, Docker y Kubernetes, CI/CD y monitoreo.</p>
                                 </div>
                             </div>
@@ -178,156 +208,264 @@
             </div>
         </section>
 
-        <section id="projects" class="projects">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-badge">Proyectos</span>
-                    <h2 class="section-title">Experiencias aplicadas en la nube</h2>
-                    <p class="section-subtitle">Explora algunos proyectos donde puse en práctica conceptos de infraestructura, automatización y desarrollo cloud.</p>
-                </div>
-                
-                <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
-            </div>
-        </section>
-
-        <section id="skills" class="skills">
-            <div class="container">
-                <div class="section-header">
+        <section id="skills" class="skills bg-slate-900/40 py-24">
+            <div class="container-xl mx-auto px-4">
+                <div class="section-header text-center">
                     <span class="section-badge">Habilidades técnicas</span>
-                    <h2 class="section-title">Tecnologías y herramientas aprendidas</h2>
+                    <h2 class="section-title text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-brand-500 via-accent to-emerald-400 bg-clip-text drop-shadow-[0_0_18px_rgba(14,165,233,0.35)] md:text-5xl">Tecnologías y herramientas aprendidas</h2>
                     <p class="section-subtitle">Un camino que combina universidad, bootcamps y práctica constante.</p>
                 </div>
+
+                <div class="skills-grid mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="skill-card scroll-animate group rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="skill-icon gradient-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-white">Amazon Web Services</h3>
+                        <p class="text-sm text-slate-300">Experiencia con servicios fundamentales como EC2, S3, IAM, VPC y CloudWatch para crear arquitecturas seguras.</p>
+                    </div>
+                    <div class="skill-card scroll-animate group rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="skill-icon gradient-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-white">Docker &amp; Contenedores</h3>
+                        <p class="text-sm text-slate-300">Creación de imágenes eficientes, orquestación con Compose y despliegues consistentes en múltiples entornos.</p>
+                    </div>
+                    <div class="skill-card scroll-animate group rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="skill-icon gradient-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-white">Kubernetes</h3>
+                        <p class="text-sm text-slate-300">Gestión de clusters, despliegues declarativos y prácticas de observabilidad para asegurar servicios resilientes.</p>
+                    </div>
+                    <div class="skill-card scroll-animate group rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="skill-icon gradient-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-white">CI/CD</h3>
+                        <p class="text-sm text-slate-300">Automatización de pipelines con GitHub Actions, integración de pruebas y despliegues controlados.</p>
+                    </div>
+                    <div class="skill-card scroll-animate group rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="skill-icon gradient-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-white">Infraestructura como Código</h3>
+                        <p class="text-sm text-slate-300">Uso de Terraform y CloudFormation para versionar y replicar infraestructuras completas.</p>
+                    </div>
+                    <div class="skill-card scroll-animate group rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="skill-icon gradient-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="mb-3 text-xl font-semibold text-white">Seguridad Cloud</h3>
+                        <p class="text-sm text-slate-300">Aplicación de buenas prácticas de identidad, monitoreo y protección de datos en entornos productivos.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="education" class="education">
-            <div class="container">
-                <div class="section-header">
+        <section id="education" class="education py-24">
+            <div class="container-xl mx-auto px-4">
+                <div class="section-header text-center">
                     <span class="section-badge">Educación</span>
-                    <h2 class="section-title">Formación académica y práctica</h2>
+                    <h2 class="section-title text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-brand-500 via-accent to-emerald-400 bg-clip-text drop-shadow-[0_0_18px_rgba(14,165,233,0.35)] md:text-5xl">Formación académica y práctica</h2>
                     <p class="section-subtitle">Un recorrido que combina estudios universitarios, bootcamps y proyectos prácticos en Cloud y DevOps.</p>
                 </div>
+
+                <div class="education-timeline mt-16 grid gap-8 lg:grid-cols-3">
+                    <div class="education-item scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="education-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="education-content space-y-3">
+                            <span class="education-period text-sm font-semibold uppercase tracking-widest text-accent">2023 - Actualidad</span>
+                            <h3 class="text-xl font-semibold text-white">Estudios en IT - Cloud &amp; DevOps</h3>
+                            <p class="text-sm text-slate-300">Formación integral en conceptos de redes, sistemas operativos, programación y arquitecturas cloud modernas.</p>
+                        </div>
+                    </div>
+                    <div class="education-item scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="education-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="education-content space-y-3">
+                            <span class="education-period text-sm font-semibold uppercase tracking-widest text-accent">2023</span>
+                            <h3 class="text-xl font-semibold text-white">Programa AWS re/Start</h3>
+                            <p class="text-sm text-slate-300">Bootcamp intensivo de Amazon Web Services con foco en servicios core, seguridad, scripting y preparación para certificaciones.</p>
+                        </div>
+                    </div>
+                    <div class="education-item scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="education-icon mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="education-content space-y-3">
+                            <span class="education-period text-sm font-semibold uppercase tracking-widest text-accent">2022 - 2023</span>
+                            <h3 class="text-xl font-semibold text-white">Laboratorios DevOps y Cloud</h3>
+                            <p class="text-sm text-slate-300">Prácticas continuas en entornos simulados aplicando automatización, observabilidad y despliegues iterativos.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="certifications" class="certifications">
-            <div class="container">
-                <div class="section-header">
+        <section id="certifications" class="certifications bg-slate-900/40 py-24">
+            <div class="container-xl mx-auto px-4">
+                <div class="section-header text-center">
                     <span class="section-badge">Cursos y certificaciones</span>
-                    <h2 class="section-title">Logros académicos y profesionales</h2>
+                    <h2 class="section-title text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-brand-500 via-accent to-emerald-400 bg-clip-text drop-shadow-[0_0_18px_rgba(14,165,233,0.35)] md:text-5xl">Logros académicos y profesionales</h2>
+                    <p class="section-subtitle">Formaciones y certificaciones que respaldan mi camino en cloud computing y DevOps.</p>
                 </div>
-                <div class="certification-list">
-                    <div class="certification-item">
-                        <h3>Bootcamp Blockstellart Cloud Computing & DevOps</h3>
-                        <p>Formación intensiva en Cloud Computing y DevOps. Módulos: Introducción a Cloud Computing, AWS, Docker, Kubernetes, CI/CD, monitoreo y seguridad.</p>
+
+                <div class="certifications-grid mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="certification-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="certification-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="certification-body space-y-3">
+                            <h3 class="text-xl font-semibold text-white">Bootcamp Blockstellart Cloud Computing &amp; DevOps</h3>
+                            <span class="certification-issuer text-sm font-semibold uppercase tracking-widest text-accent">Blockstellart</span>
+                            <p class="text-sm text-slate-300">Formación intensiva en Cloud Computing y DevOps. Módulos: Introducción a Cloud Computing, AWS, Docker, Kubernetes, CI/CD y monitoreo.</p>
+                        </div>
                     </div>
-                    <div class="certification-item">
-                        <h3>AWS Solutions Architect Associate (en preparación)</h3>
-                        <p>Actualmente en preparación para rendir la certificación oficial, profundizando en diseño de arquitecturas distribuidas, resilientes y seguras en AWS.</p>
+                    <div class="certification-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="certification-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="certification-body space-y-3">
+                            <h3 class="text-xl font-semibold text-white">AWS Certified Cloud Practitioner</h3>
+                            <span class="certification-issuer text-sm font-semibold uppercase tracking-widest text-accent">Amazon Web Services</span>
+                            <p class="text-sm text-slate-300">Certificación oficial aprobada, validando conocimientos fundamentales en servicios y arquitectura AWS.</p>
+                        </div>
+                    </div>
+                    <div class="certification-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                        <div class="certification-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="certification-body space-y-3">
+                            <h3 class="text-xl font-semibold text-white">AWS Solutions Architect Associate (en preparación)</h3>
+                            <span class="certification-issuer text-sm font-semibold uppercase tracking-widest text-accent">Amazon Web Services</span>
+                            <p class="text-sm text-slate-300">Profundizando en diseño de arquitecturas distribuidas, resilientes y seguras en AWS para obtener la certificación.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="contact">
-            <div class="container">
-                <div class="section-header">
+        <section id="projects" class="projects py-24">
+            <div class="container-xl mx-auto px-4">
+                <div class="section-header text-center">
+                    <span class="section-badge">Proyectos</span>
+                    <h2 class="section-title text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-brand-500 via-accent to-emerald-400 bg-clip-text drop-shadow-[0_0_18px_rgba(14,165,233,0.35)] md:text-5xl">Experiencias aplicadas en la nube</h2>
+                    <p class="section-subtitle">Explora algunos proyectos donde puse en práctica conceptos de infraestructura, automatización y desarrollo cloud.</p>
+                </div>
+
+                <div class="projects-grid mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3" id="projectsGrid" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact bg-slate-900/40 py-24">
+            <div class="container-xl mx-auto px-4">
+                <div class="section-header text-center">
                     <span class="section-badge">Contacto</span>
-                    <h2 class="section-title">¿Conversamos?</h2>
+                    <h2 class="section-title text-4xl font-extrabold tracking-tight text-transparent bg-gradient-to-r from-brand-500 via-accent to-emerald-400 bg-clip-text drop-shadow-[0_0_18px_rgba(14,165,233,0.35)] md:text-5xl">¿Conversamos?</h2>
                     <p class="section-subtitle">Podés escribirme para consultas, oportunidades de aprendizaje, proyectos colaborativos o simplemente para charlar sobre tecnología. ¡No dudes en comunicarte!</p>
                 </div>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-card scroll-animate">
-                            <div class="contact-icon">
+                <div class="contact-content mt-16 grid gap-12 lg:grid-cols-2">
+                    <div class="contact-info space-y-6">
+                        <div class="contact-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                            <div class="contact-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
                                 <i class="fas fa-envelope"></i>
                             </div>
-                            <div class="contact-details">
-                                <h3>Email</h3>
-                                <p>tperticaro@gmail.com</p>
-                                <a href="mailto:tperticaro@gmail.com" class="contact-link">Enviar mensaje</a>
+                            <div class="contact-details space-y-2">
+                                <h3 class="text-xl font-semibold text-white">Email</h3>
+                                <p class="text-sm text-slate-300">tperticaro@gmail.com</p>
+                                <a href="mailto:tperticaro@gmail.com" class="contact-link inline-flex items-center gap-2 text-accent transition-colors duration-300 hover:text-emerald-300">Enviar mensaje<i class="fas fa-arrow-up-right-from-square text-xs"></i></a>
                             </div>
                         </div>
-                        <div class="contact-card scroll-animate">
-                            <div class="contact-icon">
+                        <div class="contact-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
+                            <div class="contact-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
                                 <i class="fab fa-linkedin-in"></i>
                             </div>
-                            <div class="contact-details">
-                                <h3>LinkedIn</h3>
-                                <p>Conecta para conocer mi trayectoria</p>
-                                <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="contact-link">Visitar perfil</a>
+                            <div class="contact-details space-y-2">
+                                <h3 class="text-xl font-semibold text-white">LinkedIn</h3>
+                                <p class="text-sm text-slate-300">Conecta para conocer mi trayectoria</p>
+                                <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="contact-link inline-flex items-center gap-2 text-accent transition-colors duration-300 hover:text-emerald-300">Visitar perfil<i class="fas fa-arrow-up-right-from-square text-xs"></i></a>
                             </div>
                         </div>
                     </div>
-                    <form id="contactForm" class="contact-form scroll-animate" action="mailto:tperticaro@gmail.com" method="post">
-                        <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Tu nombre" required>
+                    <form id="contactForm" class="contact-form scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-10 shadow-soft backdrop-blur transition-all duration-300 hover:border-accent/60" action="mailto:tperticaro@gmail.com" method="post">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <label for="name" class="form-label text-sm uppercase tracking-widest text-slate-400">Nombre</label>
+                                <input type="text" id="name" name="name" class="form-control rounded-2xl border-white/10 bg-slate-900/80 py-3 text-slate-100 focus:border-accent focus:bg-slate-900 focus:shadow-glow" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="email" class="form-label text-sm uppercase tracking-widest text-slate-400">Email</label>
+                                <input type="email" id="email" name="email" class="form-control rounded-2xl border-white/10 bg-slate-900/80 py-3 text-slate-100 focus:border-accent focus:bg-slate-900 focus:shadow-glow" placeholder="tu@email.com" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label text-sm uppercase tracking-widest text-slate-400">Mensaje</label>
+                                <textarea id="message" name="message" class="form-control rounded-2xl border-white/10 bg-slate-900/80 py-3 text-slate-100 focus:border-accent focus:bg-slate-900 focus:shadow-glow" rows="4" placeholder="¿Cómo puedo ayudarte?" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100 rounded-2xl bg-gradient-to-r from-brand-500 via-accent to-emerald-400 py-3 text-base font-semibold text-white shadow-glow transition-transform duration-300 hover:scale-[1.02]">Enviar mensaje</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="tu@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="¿Cómo puedo ayudarte?" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
                     </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo-wrapper">
+    <footer class="footer border-t border-white/10 bg-slate-950/95 py-12">
+        <div class="container-xl mx-auto px-4">
+            <div class="footer-content grid gap-10 lg:grid-cols-[1.2fr,1fr]">
+                <div class="footer-brand flex flex-col gap-5">
+                    <div class="footer-logo-wrapper flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-lg font-semibold text-white shadow-glow">
                         <span class="footer-logo">TP</span>
                     </div>
-                    <p>Portfolio de Tomas Perticaro. Documentando el aprendizaje continuo en cloud, DevOps y automatización.</p>
+                    <p class="max-w-xl text-sm text-slate-400">Portfolio de Tomas Perticaro. Documentando el aprendizaje continuo en cloud, DevOps y automatización.</p>
                 </div>
-                <div class="footer-links">
+                <div class="footer-links grid gap-8 sm:grid-cols-2">
                     <div class="footer-section">
-                        <h4>Enlaces</h4>
-                        <ul>
-                            <li><a href="#hero">Inicio</a></li>
-                            <li><a href="#about">Sobre mí</a></li>
-                            <li><a href="#projects">Proyectos</a></li>
+                        <h4 class="mb-3 text-sm font-semibold uppercase tracking-widest text-slate-400">Enlaces</h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li><a class="transition-colors duration-300 hover:text-emerald-300" href="#hero">Inicio</a></li>
+                            <li><a class="transition-colors duration-300 hover:text-emerald-300" href="#about">Sobre mí</a></li>
+                            <li><a class="transition-colors duration-300 hover:text-emerald-300" href="#projects">Proyectos</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
-                        <h4>Contacto</h4>
-                        <ul>
-                            <li><a href="mailto:tperticaro@gmail.com">tperticaro@gmail.com</a></li>
-                            <li><a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener">LinkedIn</a></li>
+                        <h4 class="mb-3 text-sm font-semibold uppercase tracking-widest text-slate-400">Contacto</h4>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li><a class="transition-colors duration-300 hover:text-emerald-300" href="mailto:tperticaro@gmail.com">tperticaro@gmail.com</a></li>
+                            <li><a class="transition-colors duration-300 hover:text-emerald-300" href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener">LinkedIn</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom">
+            <div class="footer-bottom mt-10 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-6 text-sm text-slate-500 sm:flex-row">
                 <p>&copy; <span id="currentYear"></span> Tomas Perticaro. Todos los derechos reservados.</p>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <div class="social-links flex items-center gap-4">
+                    <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="social-link inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-slate-900/80 text-slate-300 transition-all duration-300 hover:scale-110 hover:border-accent hover:text-accent" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle"></h2>
-                <span class="modal-close" role="button" aria-label="Cerrar">&times;</span>
+    <div id="projectModal" class="modal fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 px-4 py-10" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content w-full max-w-3xl overflow-hidden rounded-3xl border border-white/10 bg-slate-900/95 shadow-glow">
+            <div class="modal-header flex items-center justify-between border-b border-white/10 bg-slate-900/80 px-6 py-4">
+                <h2 id="modalTitle" class="text-xl font-semibold text-white"></h2>
+                <span class="modal-close inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-slate-900/70 text-2xl text-slate-400 transition-all duration-300 hover:scale-105 hover:text-white" role="button" aria-label="Cerrar">&times;</span>
             </div>
-            <div class="modal-body">
-                <div class="modal-image-container">
-                    <img id="modalImage" src="" alt="" class="modal-image">
+            <div class="modal-body grid gap-6 bg-slate-900/90 px-6 py-6 md:grid-cols-[1fr,1.2fr]">
+                <div class="modal-image-container overflow-hidden rounded-2xl border border-white/10">
+                    <img id="modalImage" src="" alt="" class="modal-image h-full w-full object-cover">
                 </div>
-                <div class="modal-info">
-                    <p id="modalDescription"></p>
-                    <div id="modalTechnologies" class="modal-technologies"></div>
+                <div class="modal-info flex flex-col gap-4">
+                    <p id="modalDescription" class="text-sm text-slate-300"></p>
+                    <div id="modalTechnologies" class="modal-technologies flex flex-wrap gap-2"></div>
                 </div>
             </div>
         </div>
@@ -336,6 +474,7 @@
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="projects-config.js"></script>
     <script src="script.js"></script>
 </body>
