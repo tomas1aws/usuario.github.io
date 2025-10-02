@@ -75,28 +75,14 @@ function createProjectCard(project) {
     const card = document.createElement('div');
     card.className = 'project-card';
     card.onclick = () => openModal(project);
-    
+
     card.innerHTML = `
         <img src="${project.image}" alt="${project.title}" class="project-image">
         <div class="project-info">
-            <h3 class="project-title">${project.title}</h3>
             <p class="project-description">${project.description}</p>
-            <div class="project-tags">
-                ${project.tags.map(tag => `<span class="project-tag" data-tag="${tag}">${tag}</span>`).join('')}
-            </div>
-            <div class="project-links">
-                <a href="${project.github}" target="_blank" class="project-link primary" onclick="event.stopPropagation(); if(this.href === '#') { alert('Enlace no disponible'); return false; }">
-                    <i class="fab fa-github"></i>
-                    Ver Código
-                </a>
-                <a href="${project.demo}" target="_blank" class="project-link secondary" onclick="event.stopPropagation(); if(this.href === '#') { alert('Enlace no disponible'); return false; }">
-                    <i class="fas fa-external-link-alt"></i>
-                    Ver Demo
-                </a>
-            </div>
         </div>
     `;
-    
+
     return card;
 }
 
@@ -154,38 +140,16 @@ function openModal(project) {
     const modalImage = document.getElementById('modalImage');
     const modalDescription = document.getElementById('modalDescription');
     const modalTechnologies = document.getElementById('modalTechnologies');
-    const modalGithub = document.getElementById('modalGithub');
-    const modalDemo = document.getElementById('modalDemo');
-    
+
     modalTitle.textContent = project.title;
     modalImage.src = project.image;
     modalImage.alt = project.title;
     modalDescription.textContent = project.fullDescription;
-    
-    modalTechnologies.innerHTML = project.technologies.map(tech => 
+
+    modalTechnologies.innerHTML = project.technologies.map(tech =>
         `<span class="modal-tech-tag">${tech}</span>`
     ).join('');
-    
-    modalGithub.href = project.github;
-    modalDemo.href = project.demo;
-    
-    // Add click handlers for modal buttons
-    modalGithub.onclick = function(e) {
-        if (this.href === '#') {
-            e.preventDefault();
-            alert('Enlace no disponible');
-            return false;
-        }
-    };
-    
-    modalDemo.onclick = function(e) {
-        if (this.href === '#') {
-            e.preventDefault();
-            alert('Enlace no disponible');
-            return false;
-        }
-    };
-    
+
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
