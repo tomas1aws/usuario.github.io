@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load projects into the grid
 function loadProjects(filter = 'all') {
     console.log('Loading projects...', projects.length, 'projects found');
-    
+
     if (!projectsGrid) {
         console.error('Projects grid element not found!');
         return;
@@ -72,14 +72,29 @@ function loadProjects(filter = 'all') {
 
 // Create project card element
 function createProjectCard(project) {
-    const card = document.createElement('div');
-    card.className = 'project-card';
+    const card = document.createElement('article');
+    card.className = 'project-card group flex cursor-pointer flex-col gap-6 rounded-3xl border border-white/10 bg-slate-900/70 p-6 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-accent/70';
+    card.setAttribute('tabindex', '0');
     card.onclick = () => openModal(project);
+    card.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            openModal(project);
+        }
+    });
+
+    const tagsMarkup = project.tags
+        ? project.tags.map(tag => `<span class="project-tag rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">${tag}</span>`).join('')
+        : '';
 
     card.innerHTML = `
-        <img src="${project.image}" alt="${project.title}" class="project-image">
-        <div class="project-info">
-            <p class="project-description">${project.description}</p>
+        <div class="relative overflow-hidden rounded-2xl border border-white/10">
+            <img src="${project.image}" alt="${project.title}" class="project-image h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+        </div>
+        <div class="project-info flex flex-col gap-4">
+            <h3 class="text-lg font-semibold text-white">${project.title}</h3>
+            <p class="project-description text-sm text-slate-300">${project.description}</p>
+            <div class="project-tags flex flex-wrap gap-2">${tagsMarkup}</div>
         </div>
     `;
 
@@ -116,21 +131,21 @@ function scrollToSection(sectionId) {
 
 // Modal functionality
 function initializeModal() {
-    // Close modal when clicking outside
+    if (!modal || !modalClose) return;
+
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             closeModal();
         }
     });
-    
-    // Close modal with escape key
+
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
+        const modalVisible = !modal.classList.contains('hidden');
+        if (e.key === 'Escape' && modalVisible) {
             closeModal();
         }
     });
-    
-    // Close button
+
     modalClose.addEventListener('click', closeModal);
 }
 
@@ -150,20 +165,32 @@ function openModal(project) {
         `<span class="modal-tech-tag">${tech}</span>`
     ).join('');
 
-    modal.style.display = 'block';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
-    
-    // Add animation
-    setTimeout(() => {
-        modal.querySelector('.modal-content').style.transform = 'scale(1)';
-        modal.querySelector('.modal-content').style.opacity = '1';
-    }, 10);
+
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        requestAnimationFrame(() => {
+            modalContent.classList.add('modal-open');
+        });
+    }
 }
 
 // Close modal
 function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    if (!modal) return;
+
+    const modalContent = modal.querySelector('.modal-content');
+    if (modalContent) {
+        modalContent.classList.remove('modal-open');
+    }
+
+    setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }, 150);
 }
 
 // Initialize animations
@@ -183,7 +210,7 @@ function initializeAnimations() {
     }, observerOptions);
     
     // Observe elements for animation
-    document.querySelectorAll('.project-card, .skill-item, .contact-card, .about-card').forEach(el => {
+    document.querySelectorAll('.project-card, .skill-card, .contact-card, .about-card, .education-item, .certification-card').forEach(el => {
         observer.observe(el);
     });
 }
@@ -318,6 +345,8 @@ function initializeNavigation() {
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
             const isActive = navMenu.classList.toggle('active');
+            navMenu.classList.toggle('hidden', !isActive);
+            navMenu.classList.toggle('flex', isActive);
             navToggle.classList.toggle('active', isActive);
             navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
         });
@@ -328,6 +357,8 @@ function initializeNavigation() {
             link.addEventListener('click', () => {
                 if (navMenu && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
+                    navMenu.classList.add('hidden');
+                    navMenu.classList.remove('flex');
                 }
 
                 if (navToggle && navToggle.classList.contains('active')) {
@@ -339,13 +370,19 @@ function initializeNavigation() {
     }
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && navMenu && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-        }
-
-        if (window.innerWidth > 768 && navToggle && navToggle.classList.contains('active')) {
-            navToggle.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
+        if (window.innerWidth >= 1024) {
+            if (navMenu) {
+                navMenu.classList.remove('hidden');
+                navMenu.classList.add('flex');
+                navMenu.classList.remove('active');
+            }
+            if (navToggle) {
+                navToggle.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        } else if (navMenu && !navMenu.classList.contains('active')) {
+            navMenu.classList.add('hidden');
+            navMenu.classList.remove('flex');
         }
     });
 
@@ -368,18 +405,20 @@ const notificationStyles = `
     position: fixed;
     top: 20px;
     right: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    padding: 16px 20px;
-    transform: translateX(400px);
-    transition: transform 0.3s ease;
+    background: rgba(15, 23, 42, 0.95);
+    color: #e2e8f0;
+    border-radius: 1rem;
+    box-shadow: 0 30px 70px -30px rgba(14, 165, 233, 0.45);
+    padding: 16px 22px;
+    transform: translateX(420px);
+    transition: transform 0.35s ease, opacity 0.35s ease;
     z-index: 10000;
-    border-left: 4px solid #06b6d4;
+    border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .notification.show {
     transform: translateX(0);
+    opacity: 1;
 }
 
 .notification-content {
@@ -389,12 +428,12 @@ const notificationStyles = `
 }
 
 .notification i {
-    color: #06b6d4;
+    color: #38bdf8;
     font-size: 18px;
 }
 
 .notification.notification-error {
-    border-left-color: #ef4444;
+    border-color: rgba(248, 113, 113, 0.65);
 }
 
 .notification.notification-error i {
@@ -402,55 +441,11 @@ const notificationStyles = `
 }
 
 .notification.notification-warning {
-    border-left-color: #f59e0b;
+    border-color: rgba(234, 179, 8, 0.65);
 }
 
 .notification.notification-warning i {
     color: #f59e0b;
-}
-
-.particle {
-    pointer-events: none;
-}
-
-.nav.scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.nav-menu.active {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-}
-
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-    
-    .nav-menu.active {
-        display: flex;
-    }
 }
 </style>
 `;
