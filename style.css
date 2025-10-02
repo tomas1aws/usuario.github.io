@@ -52,6 +52,7 @@ body {
 
 .nav {
     transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
+    overflow: hidden;
 }
 
 .nav.scrolled {
@@ -390,7 +391,7 @@ body {
 .scroll-indicator {
     position: absolute;
     left: 50%;
-    bottom: clamp(2.5rem, 6vw, 4.5rem);
+    bottom: clamp(1.5rem, 5vw, 3rem);
     transform: translateX(-50%);
     display: inline-flex;
     flex-direction: column;
@@ -507,6 +508,14 @@ body {
     }
 
     .scroll-indicator {
-        bottom: 2.5rem;
+        bottom: clamp(1.5rem, 12vw, 2.5rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    .nav-menu {
+        border: none !important;
+        background: transparent;
+        box-shadow: none;
     }
 }
