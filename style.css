@@ -204,6 +204,40 @@ body {
     position: relative;
     box-shadow: 0 40px 70px -35px rgba(37, 99, 235, 0.55);
     animation: floatCard 12s ease-in-out infinite;
+    transform: translateZ(0);
+}
+
+.code-snippet {
+    background: linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(12, 74, 110, 0.65));
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 28px 70px -40px rgba(8, 145, 178, 0.55);
+}
+
+.code-line {
+    display: block;
+    font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    white-space: pre;
+    color: rgba(226, 232, 240, 0.92);
+    text-shadow: 0 0 16px rgba(14, 165, 233, 0.25);
+}
+
+.code-line .keyword {
+    color: #60a5fa;
+    font-weight: 600;
+}
+
+.code-line .class-name {
+    color: #fbbf24;
+}
+
+.code-line .property {
+    color: #c084fc;
+}
+
+.code-line .string {
+    color: #4ade80;
 }
 
 .tech-item {
@@ -322,13 +356,13 @@ body {
 .scroll-indicator {
     position: absolute;
     left: 50%;
-    bottom: 2rem;
+    bottom: clamp(2.5rem, 6vw, 4.5rem);
     transform: translateX(-50%);
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.85rem 1.35rem;
+    padding: 1rem 1.75rem;
     border-radius: 999px;
     background: rgba(15, 23, 42, 0.65);
     color: rgba(226, 232, 240, 0.85);
@@ -428,9 +462,9 @@ body {
 }
 
 @keyframes floatCard {
-    0% { transform: translateY(0px) rotate(-0.6deg); }
-    50% { transform: translateY(-14px) rotate(0.6deg); }
-    100% { transform: translateY(0px) rotate(-0.6deg); }
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+    100% { transform: translateY(0px); }
 }
 
 @media (max-width: 1023px) {
@@ -439,6 +473,6 @@ body {
     }
 
     .scroll-indicator {
-        bottom: 1.5rem;
+        bottom: 2.5rem;
     }
 }
