@@ -197,12 +197,24 @@ function initializeContactForm() {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            
-            // Simulate form submission
-            showNotification('Mensaje enviado correctamente. Te responderé pronto.', 'success');
+
+            const subject = encodeURIComponent('Contacto desde el portfolio');
+            const bodyLines = [
+                `Nombre: ${data.name || ''}`,
+                `Email: ${data.email || ''}`,
+                '',
+                'Mensaje:',
+                data.message || ''
+            ];
+            const body = encodeURIComponent(bodyLines.join('\n'));
+            const mailtoLink = `mailto:tperticaro@gmail.com?subject=${subject}&body=${body}`;
+
+            window.location.href = mailtoLink;
+
+            showNotification('Mensaje enviado correctamente. Serás redirigido a tu correo para enviarlo.', 'success');
             this.reset();
         });
     }
