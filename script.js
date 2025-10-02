@@ -8,6 +8,7 @@
 
 // DOM Elements
 let projectsGrid, modal, modalClose, filterBtns, contactForm, particlesContainer;
+let nav, navMenu, navToggle;
 
 // Initialize DOM elements when document is ready
 function initializeDOMElements() {
@@ -17,6 +18,9 @@ function initializeDOMElements() {
     filterBtns = document.querySelectorAll('.filter-btn');
     contactForm = document.getElementById('contactForm');
     particlesContainer = document.getElementById('particles');
+    nav = document.querySelector('.nav');
+    navMenu = document.getElementById('navMenu');
+    navToggle = document.getElementById('navToggle');
 }
 
 // Current filter
@@ -33,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeParticles();
     initializeTechStack();
     initializeScrollAnimations();
+    initializeNavigation();
 });
 
 // Load projects into the grid
@@ -316,7 +321,7 @@ function initializeTechStack() {
 // Initialize scroll animations
 function initializeScrollAnimations() {
     const scrollElements = document.querySelectorAll('.scroll-animate');
-    
+
     const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -324,8 +329,60 @@ function initializeScrollAnimations() {
             }
         });
     }, { threshold: 0.1 });
-    
+
     scrollElements.forEach(el => scrollObserver.observe(el));
+}
+
+// Initialize navigation interactions
+function initializeNavigation() {
+    if (!nav) return;
+
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            const isActive = navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active', isActive);
+            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        });
+    }
+
+    if (navLinks.length) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                }
+
+                if (navToggle && navToggle.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navMenu && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+        }
+
+        if (window.innerWidth > 768 && navToggle && navToggle.classList.contains('active')) {
+            navToggle.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    const handleScroll = () => {
+        if (window.scrollY > 40) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
 }
 
 // Add CSS for notifications
