@@ -10,9 +10,7 @@ const projects = [
         fullDescription: "Sitio web estático Angular alojado en Amazon S3, distribuido globalmente con CloudFront y protegido con HTTPS mediante AWS Certificate Manager.",
         image: "imagenes/App_Web_Desplegada_AWS.jpg",
         technologies: ["Angular", "Amazon S3", "CloudFront", "Route 53", "Certificate Manager"],
-        tags: ["Básico"],
-        github: "#",
-        demo: "#"
+        tags: ["Básico"]
     },
     {
         id: 2,
@@ -21,9 +19,7 @@ const projects = [
         fullDescription: "Capstone project: Desarrollo de una aplicación para administrar socios de un club de tenis. El backend se empaquetó en Docker, se publicó en DockerHub y se desplegó en un clúster de Kubernetes con Minikube. Incluye manifiestos de Kubernetes (Deployment, Service, Namespace) y un pipeline de despliegue manual.",
         image: "imagenes/Seguimiento_Ubicacion.jpg",
         technologies: ["Docker", "Kubernetes", "Minikube", "YAML", "Node.js"],
-        tags: ["Avanzado"],
-        github: "https://github.com/tomas1aws/socios-tenis-id", // cambia por tu repo real
-        demo: "#"
+        tags: ["Avanzado"]
     },
     {
         id: 3,
@@ -32,9 +28,7 @@ const projects = [
         fullDescription: "Aplicación dockerizada desplegada en servicios de AWS. Incluye integración con Amazon ECR para imágenes, y despliegue gestionado con servicios en la nube.",
         image: "imagenes/Terraform_AWS.jpg",
         technologies: ["Docker", "Amazon ECR", "EC2", "VPC"],
-        tags: ["Avanzado"],
-        github: "#",
-        demo: "#"
+        tags: ["Avanzado"]
     },
     {
         id: 4,
@@ -43,9 +37,7 @@ const projects = [
         fullDescription: "Aplicación distribuida en clúster de Kubernetes gestionado con múltiples APIs backend en contenedores, base de datos MongoDB y servicios de AWS.",
         image: "imagenes/Kubernetes_AWS.jpg",
         technologies: ["Angular", "Docker", "Amazon ECR", "MongoDB", "Amazon SES", "Minikube"],
-        tags: ["Profesional"],
-        github: "#",
-        demo: "#"
+        tags: ["Profesional"]
     }
 ];
 
