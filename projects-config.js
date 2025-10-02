@@ -19,7 +19,7 @@ const projects = [
         title: "Proyecto de Tenis - Sistema de Socios",
         description: "Aplicación para gestión de socios de un club de tenis, desplegada en Kubernetes",
         fullDescription: "Capstone project: Desarrollo de una aplicación para administrar socios de un club de tenis. El backend se empaquetó en Docker, se publicó en DockerHub y se desplegó en un clúster de Kubernetes con Minikube. Incluye manifiestos de Kubernetes (Deployment, Service, Namespace) y un pipeline de despliegue manual.",
-        image: "imagenes/proyecto_tenis.jpg",
+        image: "imagenes/Seguimiento_Ubicacion.jpg",
         technologies: ["Docker", "Kubernetes", "Minikube", "YAML", "Node.js"],
         tags: ["Avanzado"],
         github: "https://github.com/tomas1aws/socios-tenis-id", // cambia por tu repo real
@@ -30,7 +30,7 @@ const projects = [
         title: "Docker en AWS",
         description: "Contenedores Docker desplegados en la nube con servicios de AWS",
         fullDescription: "Aplicación dockerizada desplegada en servicios de AWS. Incluye integración con Amazon ECR para imágenes, y despliegue gestionado con servicios en la nube.",
-        image: "imagenes/Docker_AWS.jpg",
+        image: "imagenes/Terraform_AWS.jpg",
         technologies: ["Docker", "Amazon ECR", "EC2", "VPC"],
         tags: ["Avanzado"],
         github: "#",

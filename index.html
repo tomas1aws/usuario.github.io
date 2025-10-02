@@ -4,62 +4,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomas Perticaro - Estudiante de IT</title>
-    <meta name="description" content="Portfolio profesional de Tomas Perticaro, estudiante de IT con formación en Cloud Computing y DevOps.">
+    <meta name="description" content="Portfolio profesional de Tomas Perticaro, estudiante de IT especializado en Cloud Computing y DevOps.">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-background">
-            <div class="particles-container" id="particles"></div>
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
+    <header class="site-header">
+        <nav class="nav" aria-label="Principal">
+            <div class="container nav-container">
+                <a href="#hero" class="nav-logo">TP</a>
+                <div class="nav-menu" id="navMenu">
+                    <a href="#about" class="nav-link">Sobre mí</a>
+                    <a href="#projects" class="nav-link">Proyectos</a>
+                    <a href="#contact" class="nav-link">Contacto</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="https://www.linkedin.com/in/tomas-perticaro" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">LinkedIn</a>
+                    <button class="hamburger" id="navToggle" type="button" aria-label="Abrir menú" aria-controls="navMenu" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-background">
+                <div class="particles-container" id="particles"></div>
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                    <div class="shape shape-4"></div>
+                </div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <div class="hero-badge">
+                        <i class="fas fa-cloud"></i>
+                        <span>Estudiante IT | Cloud & DevOps</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Aprendiendo y construyendo en <span class="gradient-text">Cloud & DevOps</span>
+                    </h1>
+                    <p class="hero-description">
+                        Estudiante de IT con formación en Cloud Computing y DevOps.
+                        Interesado en el diseño de infraestructuras escalables y automatizadas en la nube.
+                    </p>
+
+                    <div class="hero-presentation">
+                        <div class="profile-image-container">
+                            <img src="imagenes/imagenes-desarrolladores/boy.png" alt="Ilustración de Tomas Perticaro" class="profile-image">
+                            <div class="profile-border"></div>
+                        </div>
+                        <div class="profile-info">
+                            <h2 class="profile-name">Tomas Perticaro</h2>
+                            <p class="profile-title">Estudiante IT</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-lg" onclick="scrollToSection('projects')">
+                            <i class="fas fa-rocket"></i>
+                            Ver Proyectos
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="scrollToSection('contact')">
+                            <i class="fas fa-envelope"></i>
+                            Contactar
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual fade-in-delay">
+                    <div class="floating-card">
+                        <div class="card-header">
+                            <div class="card-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="code-snippet">
+                            <div class="code-line"><span class="keyword">class</span> <span class="class-name">CloudEngineer</span> {</div>
+                            <div class="code-line">  <span class="property">constructor</span>() {</div>
+                            <div class="code-line">    this.stack = ['AWS', 'Docker', 'Kubernetes'];</div>
+                            <div class="code-line">    this.focus = 'Automatización y CI/CD';</div>
+                            <div class="code-line">  }</div>
+                            <div class="code-line">  <span class="property">deploy</span>() {</div>
+                            <div class="code-line">    <span class="keyword">return</span> <span class="string">'Infraestructura lista en minutos'</span>;</div>
+                            <div class="code-line">  }</div>
+                            <div class="code-line">}</div>
+                        </div>
+                        <div class="tech-stack">
+                            <div class="tech-item" data-tech="AWS">
+                                <i class="fab fa-aws"></i>
+                            </div>
+                            <div class="tech-item" data-tech="Docker">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <div class="tech-item" data-tech="Kubernetes">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator" onclick="scrollToSection('about')">
+                <i class="fas fa-chevron-down"></i>
+                <span>Desplazar hacia abajo</span>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Sobre mí</span>
+                    <h2 class="section-title">Creando soluciones en la nube paso a paso</h2>
+                    <p class="section-subtitle">Me apasiona entender cómo funcionan los sistemas distribuidos y cómo automatizar despliegues confiables.</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-card scroll-animate">
+                        <p class="about-description">
+                            Actualmente estudio IT con foco en Cloud Computing y DevOps. He trabajado en proyectos donde apliqué conceptos de infraestructura como código, contenedores y despliegues automatizados para mejorar la disponibilidad de los servicios.
+                        </p>
+                        <div class="about-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Experiencia con AWS, Docker y Kubernetes</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-terminal"></i>
+                                <span>Automatización con pipelines CI/CD</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Buenas prácticas de seguridad en la nube</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-people-carry"></i>
+                                <span>Trabajo en equipo y comunicación efectiva</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-card scroll-animate">
+                        <h3>Recorrido reciente</h3>
+                        <div class="experience-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Capstone Project - Sistema de socios</h3>
+                                    <p>Diseño e implementación de una solución dockerizada desplegada en Kubernetes con monitoreo básico y pipeline manual.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Certificación AWS re/Start</h3>
+                                    <p>Formación intensiva en servicios fundamentales de AWS con proyectos prácticos de despliegue y seguridad.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h3>Laboratorios DevOps</h3>
+                                    <p>Prácticas continuas con GitHub Actions, Terraform y herramientas de observabilidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Proyectos</span>
+                    <h2 class="section-title">Experiencias aplicadas en la nube</h2>
+                    <p class="section-subtitle">Explora algunos proyectos donde puse en práctica conceptos de infraestructura, automatización y desarrollo cloud.</p>
+                </div>
+                <div class="projects-filter">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i>
+                        Todos
+                    </button>
+                    <button class="filter-btn" data-filter="Básico">
+                        <i class="fas fa-seedling"></i>
+                        Básico
+                    </button>
+                    <button class="filter-btn" data-filter="Avanzado">
+                        <i class="fas fa-chart-line"></i>
+                        Avanzado
+                    </button>
+                    <button class="filter-btn" data-filter="Profesional">
+                        <i class="fas fa-rocket"></i>
+                        Profesional
+                    </button>
+                </div>
+                <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Contacto</span>
+                    <h2 class="section-title">¿Conversamos?</h2>
+                    <p class="section-subtitle">Estoy abierto a colaborar en proyectos cloud, prácticas profesionales o charlas técnicas.</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-card scroll-animate">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p>perticaro.tomas@gmail.com</p>
+                                <a href="mailto:perticaro.tomas@gmail.com" class="contact-link">Enviar mensaje</a>
+                            </div>
+                        </div>
+                        <div class="contact-card scroll-animate">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>LinkedIn</h3>
+                                <p>Conecta para conocer mi trayectoria</p>
+                                <a href="https://www.linkedin.com/in/tomas-perticaro" target="_blank" rel="noopener" class="contact-link">Visitar perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                    <form id="contactForm" class="contact-form scroll-animate">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensaje</label>
+                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="¿Cómo puedo ayudarte?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo-wrapper">
+                        <span class="footer-logo">TP</span>
+                    </div>
+                    <p>Portfolio de Tomas Perticaro. Documentando el aprendizaje continuo en cloud, DevOps y automatización.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Enlaces</h4>
+                        <ul>
+                            <li><a href="#hero">Inicio</a></li>
+                            <li><a href="#about">Sobre mí</a></li>
+                            <li><a href="#projects">Proyectos</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Contacto</h4>
+                        <ul>
+                            <li><a href="mailto:perticaro.tomas@gmail.com">perticaro.tomas@gmail.com</a></li>
+                            <li><a href="https://www.linkedin.com/in/tomas-perticaro" target="_blank" rel="noopener">LinkedIn</a></li>
+                            <li><a href="https://github.com/tomas1aws" target="_blank" rel="noopener">GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> Tomas Perticaro. Todos los derechos reservados.</p>
+                <div class="social-links">
+                    <a href="https://github.com/tomas1aws" target="_blank" rel="noopener" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/tomas-perticaro" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
         </div>
-        <div class="hero-content">
-            <div class="hero-text fade-in">
-                <div class="hero-badge">
-                    <i class="fas fa-cloud"></i>
-                    <span>Estudiante IT | Cloud & DevOps</span>
+    </footer>
+
+    <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <span class="modal-close" role="button" aria-label="Cerrar">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img id="modalImage" src="" alt="" class="modal-image">
                 </div>
-                <h1 class="hero-title">
-                    Aprendiendo y construyendo en <span class="gradient-text">Cloud & DevOps</span>
-                </h1>
-                <p class="hero-description">
-                    Estudiante de IT con formación en Cloud Computing y DevOps. 
-                    Interesado en el diseño de infraestructuras escalables y automatizadas en la nube.
-                </p>
-                
-                <!-- Personal Presentation within Hero -->
-                <div class="hero-presentation">
-                    <div class="profile-image-container">
-                        <img src="imagenes/foto-perfil.jpg" alt="Tomas Perticaro" class="profile-image">
-                        <div class="profile-border"></div>
+                <div class="modal-info">
+                    <p id="modalDescription"></p>
+                    <div id="modalTechnologies" class="modal-technologies"></div>
+                    <div class="modal-buttons">
+                        <a id="modalGithub" href="#" target="_blank" rel="noopener" class="project-link primary">Ver Código</a>
+                        <a id="modalDemo" href="#" target="_blank" rel="noopener" class="project-link secondary">Ver Demo</a>
                     </div>
-                    <div class="profile-info">
-                        <h2 class="profile-name">Tomas Perticaro</h2>
-                        <p class="profile-title">Estudiante IT</p>
-                    </div>
-                </div>
-                
-                <div class="hero-buttons">
-                    <button class="btn btn-primary btn-lg" onclick="scrollToSection('projects')">
-                        <i class="fas fa-rocket"></i>
-                        Ver Proyectos
-                    </button>
-                    <button class="btn btn-outline btn-lg" onclick="scrollToSection('contact')">
-                        <i class="fas fa-envelope"></i>
-                        Contactar
-                    </button>
                 </div>
             </div>
-            <div class="hero-visual fade-in-delay">
-                <div class="floating-card">
-                    <div class="card-header">
-                        <div class="card-dots">
-                            <span></span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    <script src="projects-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
