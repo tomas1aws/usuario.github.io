@@ -15,6 +15,21 @@ body {
     min-height: 100vh;
 }
 
+.profile-image-frame {
+    overflow: hidden;
+    display: inline-flex;
+    border-radius: 1.5rem;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 38%;
+    transform: scale(1.7);
+    transform-origin: 50% 38%;
+}
+
 .site-header {
     padding: 1.25rem 0;
 }
@@ -211,6 +226,8 @@ body {
     background: linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(12, 74, 110, 0.65));
     border: 1px solid rgba(148, 163, 184, 0.25);
     box-shadow: 0 28px 70px -40px rgba(8, 145, 178, 0.55);
+    overflow: hidden;
+    width: 100%;
 }
 
 .code-line {
@@ -218,7 +235,8 @@ body {
     font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', monospace;
     font-size: 0.95rem;
     line-height: 1.7;
-    white-space: pre;
+    white-space: pre-wrap;
+    word-break: break-word;
     color: rgba(226, 232, 240, 0.92);
     text-shadow: 0 0 16px rgba(14, 165, 233, 0.25);
 }
