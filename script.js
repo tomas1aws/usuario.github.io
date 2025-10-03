@@ -210,19 +210,6 @@ function initializeProjectsSwiper(totalSlides) {
         pagination: {
             el: '.projects-pagination',
             clickable: true
-        },
-        navigation: {
-            nextEl: '.projects-button-next',
-            prevEl: '.projects-button-prev'
-        }
-    });
-
-    const navButtons = document.querySelectorAll('.projects-button-prev, .projects-button-next');
-    navButtons.forEach(button => {
-        if (shouldLoop) {
-            button.classList.remove('pointer-events-none', 'opacity-0');
-        } else {
-            button.classList.add('pointer-events-none', 'opacity-0');
         }
     });
 }
