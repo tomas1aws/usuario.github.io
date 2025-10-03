@@ -9,6 +9,7 @@
 // DOM Elements
 let projectsGrid, modal, modalClose, filterBtns, contactForm, particlesContainer;
 let nav, navMenu, navToggle;
+let projectsSwiper;
 
 // Initialize DOM elements when document is ready
 function initializeDOMElements() {
@@ -25,6 +26,24 @@ function initializeDOMElements() {
 
 // Current filter
 let currentFilter = 'all';
+
+const TECHNOLOGY_ICON_MAP = {
+    'Angular': 'devicon-angularjs-plain colored',
+    'Amazon S3': 'devicon-amazonwebservices-plain colored',
+    'CloudFront': 'devicon-amazonwebservices-plain colored',
+    'Route 53': 'devicon-amazonwebservices-plain colored',
+    'Certificate Manager': 'fas fa-certificate text-amber-300',
+    'Docker': 'devicon-docker-plain colored',
+    'Kubernetes': 'devicon-kubernetes-plain colored',
+    'Minikube': 'devicon-kubernetes-plain colored',
+    'YAML': 'devicon-yaml-plain colored',
+    'Node.js': 'devicon-nodejs-plain colored',
+    'Amazon ECR': 'devicon-amazonwebservices-plain colored',
+    'EC2': 'devicon-amazonwebservices-plain colored',
+    'VPC': 'devicon-amazonwebservices-plain colored',
+    'MongoDB': 'devicon-mongodb-plain colored',
+    'Amazon SES': 'devicon-amazonwebservices-plain colored'
+};
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -48,21 +67,24 @@ function loadProjects(filter = 'all') {
         console.error('Projects grid element not found!');
         return;
     }
-    
+
     projectsGrid.innerHTML = '';
-    
-    const filteredProjects = filter === 'all' 
-        ? projects 
+
+    const filteredProjects = filter === 'all'
+        ? projects
         : projects.filter(project => project.tags.includes(filter));
-    
+
     console.log('Filtered projects:', filteredProjects.length);
-    
+
     filteredProjects.forEach((project, index) => {
-        const projectCard = createProjectCard(project);
-        projectCard.style.animationDelay = `${index * 0.1}s`;
-        projectsGrid.appendChild(projectCard);
+        const projectSlide = createProjectSlide(project, index);
+        projectsGrid.appendChild(projectSlide);
     });
-    
+
+    requestAnimationFrame(() => {
+        initializeProjectsSwiper(filteredProjects.length);
+    });
+
     // Trigger animation
     setTimeout(() => {
         const cards = document.querySelectorAll('.project-card');
@@ -70,11 +92,54 @@ function loadProjects(filter = 'all') {
     }, 100);
 }
 
-// Create project card element
-function createProjectCard(project) {
+function createTechnologyBadges(technologies = []) {
+    if (!Array.isArray(technologies) || technologies.length === 0) {
+        return '';
+    }
+
+    return technologies.map(tech => createTechnologyBadge(tech)).join('');
+}
+
+function createTechnologyBadge(tech) {
+    const iconClass = TECHNOLOGY_ICON_MAP[tech];
+    const iconMarkup = iconClass
+        ? `<i class="${iconClass}" aria-hidden="true"></i>`
+        : `<span class="tech-icon-initial" aria-hidden="true">${getTechnologyInitials(tech)}</span>`;
+
+    return `
+        <div class="tech-pill group/tech flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/80 p-4 text-left shadow-[0_22px_44px_-32px_rgba(14,165,233,0.75)] transition-all duration-500 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow">
+            <span class="tech-icon flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900/80 shadow-inner transition-transform duration-500 group-hover/tech:scale-110">
+                ${iconMarkup}
+            </span>
+            <span class="tech-pill-label text-sm font-semibold tracking-wide text-slate-200">${tech}</span>
+        </div>
+    `;
+}
+
+function getTechnologyInitials(tech) {
+    if (typeof tech !== 'string' || tech.trim().length === 0) {
+        return '';
+    }
+
+    const tokens = tech.trim().split(/\s+/).slice(0, 2);
+    const initials = tokens.map(token => {
+        const cleaned = token.replace(/[^A-Za-z0-9]/g, '');
+        return cleaned.charAt(0) || token.charAt(0);
+    });
+
+    return initials.join('').toUpperCase();
+}
+
+// Create project slide element
+function createProjectSlide(project, index) {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide h-auto';
+
     const card = document.createElement('article');
-    card.className = 'project-card group flex cursor-pointer flex-col gap-6 rounded-3xl border border-white/10 bg-slate-900/70 p-6 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-accent/70';
+    card.className = 'project-card group flex h-full cursor-pointer flex-col gap-6 overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 p-6 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-accent/70';
     card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.style.animationDelay = `${index * 0.1}s`;
     card.onclick = () => openModal(project);
     card.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
@@ -82,21 +147,84 @@ function createProjectCard(project) {
         }
     });
 
-    const tagsMarkup = '';
+    const badgesMarkup = createTechnologyBadges(project.technologies);
 
     card.innerHTML = `
-        <div class="relative overflow-hidden rounded-2xl border border-white/10">
-            <img src="${project.image}" alt="${project.title}" class="project-image h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+        <div class="project-stack-wrapper relative flex h-64 w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 p-6">
+            <div class="stack-badge absolute left-6 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-slate-200/80">
+                <span class="block h-1 w-1 rounded-full bg-accent/80"></span>
+                Stack principal
+            </div>
+            <div class="project-stack-grid relative z-10 grid w-full grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+                ${badgesMarkup}
+            </div>
         </div>
-        <div class="project-info flex flex-col gap-4">
-            <h3 class="text-lg font-semibold text-white">${project.title}</h3>
-            <p class="project-description text-sm text-slate-300">${project.description}</p>
-            ${tagsMarkup}
+        <div class="project-info flex flex-1 flex-col gap-4">
+            <h3 class="text-xl font-semibold text-white">${project.title}</h3>
+            <p class="project-description text-base text-slate-300">${project.description}</p>
         </div>
     `;
 
-    return card;
+    slide.appendChild(card);
+    return slide;
+}
+
+function initializeProjectsSwiper(totalSlides) {
+    const swiperContainer = document.querySelector('.projects-swiper');
+    if (!swiperContainer) return;
+
+    if (projectsSwiper) {
+        projectsSwiper.destroy(true, true);
+        projectsSwiper = null;
+    }
+
+    if (totalSlides === 0) {
+        return;
+    }
+
+    const shouldLoop = totalSlides > 1;
+
+    projectsSwiper = new Swiper('.projects-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: shouldLoop,
+        speed: 600,
+        grabCursor: true,
+        centeredSlides: totalSlides === 1,
+        keyboard: {
+            enabled: true,
+            onlyInViewport: true
+        },
+        observer: true,
+        observeParents: true,
+        breakpoints: {
+            768: {
+                slidesPerView: Math.min(2, totalSlides),
+                spaceBetween: 28
+            },
+            1280: {
+                slidesPerView: Math.min(3, totalSlides),
+                spaceBetween: 32
+            }
+        },
+        pagination: {
+            el: '.projects-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.projects-button-next',
+            prevEl: '.projects-button-prev'
+        }
+    });
+
+    const navButtons = document.querySelectorAll('.projects-button-prev, .projects-button-next');
+    navButtons.forEach(button => {
+        if (shouldLoop) {
+            button.classList.remove('pointer-events-none', 'opacity-0');
+        } else {
+            button.classList.add('pointer-events-none', 'opacity-0');
+        }
+    });
 }
 
 // Project filter functionality
