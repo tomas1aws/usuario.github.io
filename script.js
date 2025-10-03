@@ -82,9 +82,7 @@ function createProjectCard(project) {
         }
     });
 
-    const tagsMarkup = project.tags
-        ? project.tags.map(tag => `<span class="project-tag rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-200">${tag}</span>`).join('')
-        : '';
+    const tagsMarkup = '';
 
     card.innerHTML = `
         <div class="relative overflow-hidden rounded-2xl border border-white/10">
@@ -94,7 +92,7 @@ function createProjectCard(project) {
         <div class="project-info flex flex-col gap-4">
             <h3 class="text-lg font-semibold text-white">${project.title}</h3>
             <p class="project-description text-sm text-slate-300">${project.description}</p>
-            <div class="project-tags flex flex-wrap gap-2">${tagsMarkup}</div>
+            ${tagsMarkup}
         </div>
     `;
 
