@@ -373,56 +373,88 @@
                 <div class="contact-content mt-16 grid gap-12 lg:grid-cols-2">
                     <div class="contact-info space-y-6">
                         <div class="contact-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
-                            <div class="contact-card-badge">Respuesta directa</div>
-                            <div class="contact-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
-                                <i class="fas fa-envelope"></i>
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <div class="contact-card-badge">Respuesta directa</div>
+                                    <h3 class="text-2xl font-semibold text-white">Email prioritario</h3>
+                                    <p class="mt-2 text-sm text-slate-300">Si tenés una propuesta o consulta puntual, escribime y seguimos la charla por correo.</p>
+                                </div>
+                                <div class="contact-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                </div>
                             </div>
-                            <div class="contact-details space-y-2">
-                                <h3 class="text-xl font-semibold text-white">Email</h3>
-                                <p class="text-sm text-slate-300">tperticaro@gmail.com</p>
-                                <ul class="contact-highlights">
-                                    <li><i class="fas fa-clock"></i> Respuesta habitual en menos de 24 horas.</li>
-                                    <li><i class="fas fa-paperclip"></i> Ideal para compartir documentos o ideas extensas.</li>
-                                </ul>
-                                <a href="mailto:tperticaro@gmail.com" class="contact-link inline-flex items-center gap-2 text-accent transition-colors duration-300 hover:text-emerald-300">Enviar mensaje<i class="fas fa-arrow-up-right-from-square text-xs"></i></a>
+                            <div class="contact-details mt-6 space-y-4">
+                                <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-4 py-2 text-sm font-medium text-slate-200">
+                                    <i class="fas fa-at text-accent"></i>
+                                    tperticaro@gmail.com
+                                </div>
+                                <a href="mailto:tperticaro@gmail.com" class="contact-button inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 px-5 py-2 text-sm font-semibold text-white shadow-soft transition-transform duration-300 hover:scale-[1.02] hover:shadow-glow">
+                                    Escribir correo
+                                    <i class="fas fa-arrow-up-right-from-square text-xs"></i>
+                                </a>
                             </div>
                         </div>
                         <div class="contact-card scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow">
-                            <div class="contact-card-badge">Networking</div>
-                            <div class="contact-icon mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
-                                <i class="fab fa-linkedin-in"></i>
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <div class="contact-card-badge">Networking</div>
+                                    <h3 class="text-2xl font-semibold text-white">LinkedIn activo</h3>
+                                    <p class="mt-2 text-sm text-slate-300">Sumate para seguir mis avances, certificaciones y proyectos en Cloud &amp; DevOps.</p>
+                                </div>
+                                <div class="contact-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 via-accent to-emerald-400 text-2xl text-white shadow-soft">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </div>
                             </div>
-                            <div class="contact-details space-y-2">
-                                <h3 class="text-xl font-semibold text-white">LinkedIn</h3>
-                                <p class="text-sm text-slate-300">Conecta para conocer mi trayectoria</p>
-                                <ul class="contact-highlights">
-                                    <li><i class="fas fa-comments"></i> Seguimos la conversación por chat o videollamada.</li>
-                                    <li><i class="fas fa-bell"></i> Enterate de nuevas certificaciones y proyectos.</li>
-                                </ul>
-                                <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="contact-link inline-flex items-center gap-2 text-accent transition-colors duration-300 hover:text-emerald-300">Visitar perfil<i class="fas fa-arrow-up-right-from-square text-xs"></i></a>
+                            <div class="contact-details mt-6 space-y-4">
+                                <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-4 py-2 text-sm font-medium text-slate-200">
+                                    <i class="fas fa-user-friends text-accent"></i>
+                                    Tomas Perticaro
+                                </div>
+                                <a href="https://www.linkedin.com/in/tomas-perticaro-517294232" target="_blank" rel="noopener" class="contact-button inline-flex items-center gap-2 rounded-full border border-accent/60 bg-transparent px-5 py-2 text-sm font-semibold text-accent transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-emerald-200">
+                                    Visitar perfil
+                                    <i class="fas fa-arrow-up-right-from-square text-xs"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <form id="contactForm" class="contact-form scroll-animate rounded-3xl border border-white/10 bg-slate-900/70 p-10 shadow-soft backdrop-blur transition-all duration-300 hover:border-accent/60" action="mailto:tperticaro@gmail.com" method="post">
-                        <div class="row g-4">
-                            <div class="col-12">
-                                <label for="name" class="form-label text-sm uppercase tracking-widest text-slate-400">Nombre</label>
-                                <input type="text" id="name" name="name" class="form-control rounded-2xl border-white/10 bg-slate-900/80 py-3 text-slate-100 focus:border-accent focus:bg-slate-900 focus:shadow-glow" placeholder="Tu nombre" required>
+                        <div class="form-header mb-8 flex flex-col gap-3">
+                            <span class="inline-flex w-max items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+                                <i class="fas fa-paper-plane"></i>
+                                Contacto rápido
+                            </span>
+                            <h3 class="text-2xl font-semibold text-white">Contame qué tenés en mente</h3>
+                            <p class="text-sm text-slate-300">Dejame tus datos y un mensaje corto. Yo me encargo de responderte desde mi correo.</p>
+                        </div>
+                        <div class="form-grid grid gap-6">
+                            <div class="form-field">
+                                <label for="name" class="form-label">Nombre</label>
+                                <div class="form-input-wrapper">
+                                    <span class="form-icon"><i class="fas fa-user"></i></span>
+                                    <input type="text" id="name" name="name" class="contact-input" placeholder="Tu nombre" required>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <label for="email" class="form-label text-sm uppercase tracking-widest text-slate-400">Email</label>
-                                <input type="email" id="email" name="email" class="form-control rounded-2xl border-white/10 bg-slate-900/80 py-3 text-slate-100 focus:border-accent focus:bg-slate-900 focus:shadow-glow" placeholder="tu@gmail.com" required>
+                            <div class="form-field">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="form-input-wrapper">
+                                    <span class="form-icon"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" id="email" name="email" class="contact-input" placeholder="tu@gmail.com" required>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <label for="message" class="form-label text-sm uppercase tracking-widest text-slate-400">Mensaje</label>
-                                <textarea id="message" name="message" class="form-control rounded-2xl border-white/10 bg-slate-900/80 py-3 text-slate-100 focus:border-accent focus:bg-slate-900 focus:shadow-glow" rows="4" placeholder="¿Cómo puedo ayudarte?" required></textarea>
+                            <div class="form-field">
+                                <label for="message" class="form-label">Mensaje</label>
+                                <div class="form-input-wrapper">
+                                    <span class="form-icon"><i class="fas fa-pen"></i></span>
+                                    <textarea id="message" name="message" class="contact-textarea" rows="5" placeholder="¿Cómo puedo ayudarte?" required></textarea>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary w-100 rounded-2xl bg-gradient-to-r from-brand-500 via-accent to-emerald-400 py-3 text-base font-semibold text-white shadow-glow transition-transform duration-300 hover:scale-[1.02]">Enviar mensaje</button>
-                            </div>
-                            <div class="col-12">
-                                <p class="form-notice"><i class="fas fa-shield-alt"></i> Este formulario abre tu cliente de correo. No compartas información sensible y revisá que el destinatario sea correcto antes de enviar.</p>
-                            </div>
+                        </div>
+                        <div class="form-actions mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                            <p class="form-notice"><i class="fas fa-shield-alt"></i> El formulario abre tu cliente de correo para que revises y envíes el mensaje.</p>
+                            <button type="submit" class="contact-submit inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 via-accent to-emerald-400 px-8 py-3 text-base font-semibold text-white shadow-glow transition-transform duration-300 hover:scale-[1.03]">
+                                Enviar mensaje
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </form>
                 </div>
