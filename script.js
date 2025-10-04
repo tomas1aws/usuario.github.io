@@ -9,7 +9,6 @@
 // DOM Elements
 let projectsGrid, modal, modalClose, filterBtns, contactForm, particlesContainer;
 let nav, navMenu, navToggle;
-let projectsSwiper;
 
 // Initialize DOM elements when document is ready
 function initializeDOMElements() {
@@ -28,21 +27,21 @@ function initializeDOMElements() {
 let currentFilter = 'all';
 
 const TECHNOLOGY_ICON_MAP = {
-    'Angular': 'devicon-angularjs-plain colored',
-    'Amazon S3': 'devicon-amazonwebservices-plain colored',
-    'CloudFront': 'devicon-amazonwebservices-plain colored',
-    'Route 53': 'devicon-amazonwebservices-plain colored',
-    'Certificate Manager': 'fas fa-certificate text-amber-300',
-    'Docker': 'devicon-docker-plain colored',
-    'Kubernetes': 'devicon-kubernetes-plain colored',
-    'Minikube': 'devicon-kubernetes-plain colored',
-    'YAML': 'devicon-yaml-plain colored',
-    'Node.js': 'devicon-nodejs-plain colored',
-    'Amazon ECR': 'devicon-amazonwebservices-plain colored',
-    'EC2': 'devicon-amazonwebservices-plain colored',
-    'VPC': 'devicon-amazonwebservices-plain colored',
-    'MongoDB': 'devicon-mongodb-plain colored',
-    'Amazon SES': 'devicon-amazonwebservices-plain colored'
+    'Angular': 'fa-brands fa-angular',
+    'Amazon S3': 'fa-solid fa-database',
+    'CloudFront': 'fa-solid fa-globe',
+    'Route 53': 'fa-solid fa-route',
+    'Certificate Manager': 'fa-solid fa-shield-halved',
+    'Docker': 'fa-brands fa-docker',
+    'Kubernetes': 'fa-solid fa-network-wired',
+    'Minikube': 'fa-solid fa-cubes',
+    'YAML': 'fa-solid fa-code',
+    'Node.js': 'fa-brands fa-node-js',
+    'Amazon ECR': 'fa-solid fa-layer-group',
+    'EC2': 'fa-solid fa-server',
+    'VPC': 'fa-solid fa-diagram-project',
+    'MongoDB': 'fa-solid fa-leaf',
+    'Amazon SES': 'fa-solid fa-envelope-open-text'
 };
 
 // Initialize the application
@@ -72,17 +71,13 @@ function loadProjects(filter = 'all') {
 
     const filteredProjects = filter === 'all'
         ? projects
-        : projects.filter(project => project.tags.includes(filter));
+        : projects.filter(project => Array.isArray(project.tags) && project.tags.includes(filter));
 
     console.log('Filtered projects:', filteredProjects.length);
 
     filteredProjects.forEach((project, index) => {
-        const projectSlide = createProjectSlide(project, index);
-        projectsGrid.appendChild(projectSlide);
-    });
-
-    requestAnimationFrame(() => {
-        initializeProjectsSwiper(filteredProjects.length);
+        const projectCard = createProjectCard(project, index);
+        projectsGrid.appendChild(projectCard);
     });
 
     // Trigger animation
@@ -97,7 +92,20 @@ function createTechnologyBadges(technologies = []) {
         return '';
     }
 
-    return technologies.map(tech => createTechnologyBadge(tech)).join('');
+    const displayTechnologies = technologies.slice(0, 4);
+    let badgesMarkup = displayTechnologies.map(tech => createTechnologyBadge(tech)).join('');
+
+    const remainingCount = technologies.length - displayTechnologies.length;
+    if (remainingCount > 0) {
+        badgesMarkup += `
+            <div class="tech-pill tech-pill-more" aria-label="${remainingCount} tecnologías adicionales">
+                <span class="tech-icon" aria-hidden="true">+${remainingCount}</span>
+                <span class="tech-pill-label">más</span>
+            </div>
+        `;
+    }
+
+    return badgesMarkup;
 }
 
 function createTechnologyBadge(tech) {
@@ -107,11 +115,11 @@ function createTechnologyBadge(tech) {
         : `<span class="tech-icon-initial" aria-hidden="true">${getTechnologyInitials(tech)}</span>`;
 
     return `
-        <div class="tech-pill group/tech flex items-center gap-3 rounded-2xl border border-white/10 bg-slate-950/80 p-4 text-left shadow-[0_22px_44px_-32px_rgba(14,165,233,0.75)] transition-all duration-500 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow">
-            <span class="tech-icon flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900/80 shadow-inner transition-transform duration-500 group-hover/tech:scale-110">
+        <div class="tech-pill group/tech">
+            <span class="tech-icon" aria-hidden="true">
                 ${iconMarkup}
             </span>
-            <span class="tech-pill-label text-sm font-semibold tracking-wide text-slate-200">${tech}</span>
+            <span class="tech-pill-label">${tech}</span>
         </div>
     `;
 }
@@ -130,11 +138,8 @@ function getTechnologyInitials(tech) {
     return initials.join('').toUpperCase();
 }
 
-// Create project slide element
-function createProjectSlide(project, index) {
-    const slide = document.createElement('div');
-    slide.className = 'swiper-slide h-auto';
-
+// Create project card element
+function createProjectCard(project, index) {
     const card = document.createElement('article');
     card.className = 'project-card group flex h-full cursor-pointer flex-col gap-6 overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 p-6 shadow-soft transition-all duration-500 hover:-translate-y-2 hover:border-accent/60 hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-accent/70';
     card.setAttribute('tabindex', '0');
@@ -148,70 +153,42 @@ function createProjectSlide(project, index) {
     });
 
     const badgesMarkup = createTechnologyBadges(project.technologies);
+    const iconClass = project.iconClass || 'fa-solid fa-diagram-project';
+    const iconStyles = [];
+
+    if (project.iconBackground) {
+        iconStyles.push(`background: ${project.iconBackground}`);
+    }
+
+    if (project.iconColor) {
+        iconStyles.push(`color: ${project.iconColor}`);
+    }
+
+    const iconStyleAttribute = iconStyles.length > 0
+        ? ` style="${iconStyles.join('; ')}"`
+        : '';
 
     card.innerHTML = `
-        <div class="project-stack-wrapper relative flex h-64 w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 p-6">
-            <div class="stack-badge absolute left-6 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.32em] text-slate-200/80">
-                <span class="block h-1 w-1 rounded-full bg-accent/80"></span>
-                Stack principal
+        <div class="project-media relative overflow-hidden rounded-2xl border border-white/10">
+            <div class="project-media-overlay"></div>
+            <div class="project-icon-wrapper">
+                <div class="project-icon"${iconStyleAttribute}>
+                    <i class="${iconClass}" aria-hidden="true"></i>
+                </div>
             </div>
-            <div class="project-stack-grid relative z-10 grid w-full grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
+        </div>
+        <div class="project-content flex flex-1 flex-col gap-4">
+            <div>
+                <h3 class="project-title text-xl font-semibold text-white">${project.title}</h3>
+                <p class="project-description text-base text-slate-300">${project.description}</p>
+            </div>
+            <div class="project-technologies">
                 ${badgesMarkup}
             </div>
         </div>
-        <div class="project-info flex flex-1 flex-col gap-4">
-            <h3 class="text-xl font-semibold text-white">${project.title}</h3>
-            <p class="project-description text-base text-slate-300">${project.description}</p>
-        </div>
     `;
 
-    slide.appendChild(card);
-    return slide;
-}
-
-function initializeProjectsSwiper(totalSlides) {
-    const swiperContainer = document.querySelector('.projects-swiper');
-    if (!swiperContainer) return;
-
-    if (projectsSwiper) {
-        projectsSwiper.destroy(true, true);
-        projectsSwiper = null;
-    }
-
-    if (totalSlides === 0) {
-        return;
-    }
-
-    const shouldLoop = totalSlides > 1;
-
-    projectsSwiper = new Swiper('.projects-swiper', {
-        slidesPerView: 1,
-        spaceBetween: 24,
-        loop: shouldLoop,
-        speed: 600,
-        grabCursor: true,
-        centeredSlides: totalSlides === 1,
-        keyboard: {
-            enabled: true,
-            onlyInViewport: true
-        },
-        observer: true,
-        observeParents: true,
-        breakpoints: {
-            768: {
-                slidesPerView: Math.min(2, totalSlides),
-                spaceBetween: 28
-            },
-            1280: {
-                slidesPerView: Math.min(3, totalSlides),
-                spaceBetween: 32
-            }
-        },
-        pagination: {
-            el: '.projects-pagination',
-            clickable: true
-        }
-    });
+    return card;
 }
 
 // Project filter functionality
@@ -265,14 +242,34 @@ function initializeModal() {
 // Open project modal
 function openModal(project) {
     const modalTitle = document.getElementById('modalTitle');
-    const modalImage = document.getElementById('modalImage');
+    const modalIcon = document.getElementById('modalIcon');
     const modalDescription = document.getElementById('modalDescription');
     const modalTechnologies = document.getElementById('modalTechnologies');
 
     modalTitle.textContent = project.title;
-    modalImage.src = project.image;
-    modalImage.alt = project.title;
     modalDescription.textContent = project.fullDescription;
+
+    if (modalIcon) {
+        const iconClass = project.iconClass || 'fa-solid fa-diagram-project';
+        const iconStyles = [];
+
+        if (project.iconBackground) {
+            iconStyles.push(`background: ${project.iconBackground}`);
+        }
+
+        if (project.iconColor) {
+            iconStyles.push(`color: ${project.iconColor}`);
+        }
+
+        modalIcon.className = `modal-icon`;
+        if (iconStyles.length > 0) {
+            modalIcon.setAttribute('style', iconStyles.join('; '));
+        } else {
+            modalIcon.removeAttribute('style');
+        }
+
+        modalIcon.innerHTML = `<i class="${iconClass}" aria-hidden="true"></i>`;
+    }
 
     modalTechnologies.innerHTML = project.technologies.map(tech =>
         `<span class="modal-tech-tag">${tech}</span>`
