@@ -533,9 +533,8 @@ body {
 
 .project-icon,
 .modal-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     width: 6rem;
     height: 6rem;
     border-radius: 1.75rem;
@@ -554,6 +553,7 @@ body {
 
 .project-icon i,
 .modal-icon i {
+    display: block;
     line-height: 1;
 }
 
@@ -592,9 +592,8 @@ body {
 }
 
 .tech-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     width: 3.25rem;
     height: 3.25rem;
     border-radius: 999px;
@@ -611,6 +610,7 @@ body {
 }
 
 .tech-icon i {
+    display: block;
     line-height: 1;
 }
 
