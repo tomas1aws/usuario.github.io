@@ -8,7 +8,7 @@
 
 // DOM Elements
 let projectsGrid, modal, modalClose, filterBtns, contactForm, particlesContainer;
-let nav, navMenu, navToggle;
+let nav, navMenu;
 
 // Initialize DOM elements when document is ready
 function initializeDOMElements() {
@@ -20,7 +20,6 @@ function initializeDOMElements() {
     particlesContainer = document.getElementById('particles');
     nav = document.querySelector('.nav');
     navMenu = document.getElementById('navMenu');
-    navToggle = document.getElementById('navToggle');
 }
 
 // Current filter
@@ -450,51 +449,12 @@ function initializeScrollAnimations() {
 function initializeNavigation() {
     if (!nav) return;
 
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            const isActive = navMenu.classList.toggle('active');
-            navMenu.classList.toggle('hidden', !isActive);
-            navMenu.classList.toggle('flex', isActive);
-            navToggle.classList.toggle('active', isActive);
-            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-        });
-    }
-
-    if (navLinks.length) {
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    navMenu.classList.add('hidden');
-                    navMenu.classList.remove('flex');
-                }
-
-                if (navToggle && navToggle.classList.contains('active')) {
-                    navToggle.classList.remove('active');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
-    }
-
-    window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-            if (navMenu) {
-                navMenu.classList.remove('hidden');
-                navMenu.classList.add('flex');
-                navMenu.classList.remove('active');
-            }
-            if (navToggle) {
-                navToggle.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
-            }
-        } else if (navMenu && !navMenu.classList.contains('active')) {
-            navMenu.classList.add('hidden');
-            navMenu.classList.remove('flex');
+    if (navMenu) {
+        navMenu.classList.remove('hidden');
+        if (!navMenu.classList.contains('flex')) {
+            navMenu.classList.add('flex');
         }
-    });
+    }
 
     const handleScroll = () => {
         if (window.scrollY > 40) {
