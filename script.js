@@ -91,20 +91,7 @@ function createTechnologyBadges(technologies = []) {
         return '';
     }
 
-    const displayTechnologies = technologies.slice(0, 4);
-    let badgesMarkup = displayTechnologies.map(tech => createTechnologyBadge(tech)).join('');
-
-    const remainingCount = technologies.length - displayTechnologies.length;
-    if (remainingCount > 0) {
-        badgesMarkup += `
-            <div class="tech-pill tech-pill-more" aria-label="${remainingCount} tecnologías adicionales">
-                <span class="tech-icon" aria-hidden="true">+${remainingCount}</span>
-                <span class="tech-pill-label">más</span>
-            </div>
-        `;
-    }
-
-    return badgesMarkup;
+    return technologies.map(tech => createTechnologyBadge(tech)).join('');
 }
 
 function createTechnologyBadge(tech) {
@@ -152,6 +139,11 @@ function createProjectCard(project, index) {
     });
 
     const badgesMarkup = createTechnologyBadges(project.technologies);
+    const technologyClasses = ['project-technologies'];
+
+    if (project.technologiesAlign === 'top') {
+        technologyClasses.push('align-top');
+    }
     const iconClass = project.iconClass || 'fa-solid fa-diagram-project';
     const iconStyles = [];
 
@@ -181,7 +173,7 @@ function createProjectCard(project, index) {
                 <h3 class="project-title text-xl font-semibold text-white">${project.title}</h3>
                 <p class="project-description text-base text-slate-300">${project.description}</p>
             </div>
-            <div class="project-technologies">
+            <div class="${technologyClasses.join(' ')}">
                 ${badgesMarkup}
             </div>
         </div>

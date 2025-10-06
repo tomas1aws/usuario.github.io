@@ -29,6 +29,7 @@ const projects = [
         description: "Contenedores Docker desplegados en la nube con servicios de AWS",
         fullDescription: "Aplicación dockerizada desplegada en servicios de AWS. Incluye integración con Amazon ECR para imágenes, y despliegue gestionado con servicios en la nube.",
         technologies: ["Docker", "Amazon ECR", "EC2", "VPC"],
+        technologiesAlign: "top",
         iconClass: "fa-brands fa-docker",
         iconBackground: "linear-gradient(135deg, rgba(14, 165, 233, 0.85), rgba(59, 130, 246, 0.75))",
         iconColor: "rgba(224, 242, 254, 0.95)"
