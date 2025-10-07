@@ -8,7 +8,7 @@
 
 // DOM Elements
 let projectsGrid, modal, modalClose, filterBtns, contactForm, particlesContainer;
-let nav, navMenu;
+let nav, navMenu, navToggle;
 
 // Initialize DOM elements when document is ready
 function initializeDOMElements() {
@@ -20,6 +20,7 @@ function initializeDOMElements() {
     particlesContainer = document.getElementById('particles');
     nav = document.querySelector('.nav');
     navMenu = document.getElementById('navMenu');
+    navToggle = document.getElementById('navToggle');
 }
 
 // Current filter
@@ -441,13 +442,6 @@ function initializeScrollAnimations() {
 function initializeNavigation() {
     if (!nav) return;
 
-    if (navMenu) {
-        navMenu.classList.remove('hidden');
-        if (!navMenu.classList.contains('flex')) {
-            navMenu.classList.add('flex');
-        }
-    }
-
     const handleScroll = () => {
         if (window.scrollY > 40) {
             nav.classList.add('scrolled');
@@ -458,6 +452,66 @@ function initializeNavigation() {
 
     handleScroll();
     window.addEventListener('scroll', handleScroll);
+
+    if (navToggle && navMenu) {
+        const toggleMenu = () => {
+            const isHidden = navMenu.classList.contains('hidden');
+
+            if (isHidden) {
+                navMenu.classList.remove('hidden');
+                navMenu.classList.add('flex');
+            } else {
+                navMenu.classList.add('hidden');
+                navMenu.classList.remove('flex');
+            }
+
+            navToggle.setAttribute('aria-expanded', String(isHidden));
+            navToggle.querySelector('.nav-toggle-bars')?.classList.toggle('active', isHidden);
+        };
+
+        navToggle.addEventListener('click', toggleMenu);
+
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024 && !navMenu.classList.contains('hidden')) {
+                    navMenu.classList.add('hidden');
+                    navMenu.classList.remove('flex');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
+                }
+            });
+        });
+
+        let wasDesktop = window.innerWidth >= 1024;
+
+        const syncMenuState = () => {
+            const isDesktop = window.innerWidth >= 1024;
+
+            if (isDesktop) {
+                navMenu.classList.remove('hidden');
+                if (!navMenu.classList.contains('flex')) {
+                    navMenu.classList.add('flex');
+                }
+                navToggle.setAttribute('aria-expanded', 'true');
+                navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
+            } else if (wasDesktop) {
+                navMenu.classList.add('hidden');
+                navMenu.classList.remove('flex');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
+            } else {
+                const isOpen = !navMenu.classList.contains('hidden');
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+                navToggle.querySelector('.nav-toggle-bars')?.classList.toggle('active', isOpen);
+            }
+
+            wasDesktop = isDesktop;
+        };
+
+        syncMenuState();
+        window.addEventListener('resize', syncMenuState);
+    }
 }
 
 // Add CSS for notifications
