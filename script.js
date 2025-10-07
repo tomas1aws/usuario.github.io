@@ -454,7 +454,27 @@ function initializeNavigation() {
     window.addEventListener('scroll', handleScroll);
 
     if (navToggle && navMenu) {
+        const ensureMobileMenuVisible = () => {
+            if (window.innerWidth < 1024) {
+                navMenu.classList.remove('hidden');
+                if (!navMenu.classList.contains('flex')) {
+                    navMenu.classList.add('flex');
+                }
+                navToggle.setAttribute('aria-expanded', 'true');
+                navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
+                return true;
+            }
+
+            return false;
+        };
+
+        ensureMobileMenuVisible();
+
         const toggleMenu = () => {
+            if (window.innerWidth < 1024) {
+                return;
+            }
+
             const isHidden = navMenu.classList.contains('hidden');
 
             if (isHidden) {
@@ -474,7 +494,11 @@ function initializeNavigation() {
         const navLinks = navMenu.querySelectorAll('a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth < 1024 && !navMenu.classList.contains('hidden')) {
+                if (window.innerWidth < 1024) {
+                    return;
+                }
+
+                if (!navMenu.classList.contains('hidden')) {
                     navMenu.classList.add('hidden');
                     navMenu.classList.remove('flex');
                     navToggle.setAttribute('aria-expanded', 'false');
@@ -495,15 +519,15 @@ function initializeNavigation() {
                 }
                 navToggle.setAttribute('aria-expanded', 'true');
                 navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
-            } else if (wasDesktop) {
-                navMenu.classList.add('hidden');
-                navMenu.classList.remove('flex');
-                navToggle.setAttribute('aria-expanded', 'false');
-                navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
             } else {
-                const isOpen = !navMenu.classList.contains('hidden');
-                navToggle.setAttribute('aria-expanded', String(isOpen));
-                navToggle.querySelector('.nav-toggle-bars')?.classList.toggle('active', isOpen);
+                const wasMenuForcedOpen = ensureMobileMenuVisible();
+
+                if (!wasMenuForcedOpen && wasDesktop) {
+                    navMenu.classList.add('hidden');
+                    navMenu.classList.remove('flex');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
+                }
             }
 
             wasDesktop = isDesktop;
