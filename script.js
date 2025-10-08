@@ -8,7 +8,7 @@
 
 // DOM Elements
 let projectsGrid, modal, modalClose, filterBtns, contactForm, particlesContainer;
-let nav, navMenu, navToggle;
+let nav, navMenu, navToggle, navBackdrop;
 
 // Initialize DOM elements when document is ready
 function initializeDOMElements() {
@@ -18,9 +18,10 @@ function initializeDOMElements() {
     filterBtns = document.querySelectorAll('.filter-btn');
     contactForm = document.getElementById('contactForm');
     particlesContainer = document.getElementById('particles');
-    nav = document.querySelector('.nav');
+    nav = document.querySelector('.site-nav');
     navMenu = document.getElementById('navMenu');
     navToggle = document.getElementById('navToggle');
+    navBackdrop = document.querySelector('.nav-backdrop');
 }
 
 // Current filter
@@ -440,7 +441,12 @@ function initializeScrollAnimations() {
 
 // Initialize navigation interactions
 function initializeNavigation() {
-    if (!nav) return;
+    if (!nav || !navMenu || !navToggle) {
+        return;
+    }
+
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const navLinks = Array.from(navMenu.querySelectorAll('a'));
 
     const handleScroll = () => {
         if (window.scrollY > 40) {
@@ -450,8 +456,10 @@ function initializeNavigation() {
         }
     };
 
-    handleScroll();
-    window.addEventListener('scroll', handleScroll);
+    const openMenu = () => {
+        if (mediaQuery.matches) {
+            return;
+        }
 
     if (navToggle && navMenu) {
         let closeMenuTimeoutId = null;
@@ -569,9 +577,13 @@ function initializeNavigation() {
             }
         };
 
-        syncMenuState();
-        window.addEventListener('resize', syncMenuState);
+    if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', syncMenuToViewport);
+    } else if (typeof mediaQuery.addListener === 'function') {
+        mediaQuery.addListener(syncMenuToViewport);
     }
+
+    syncMenuToViewport();
 }
 
 // Add CSS for notifications
