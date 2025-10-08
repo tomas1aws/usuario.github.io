@@ -445,8 +445,13 @@ function initializeNavigation() {
         return;
     }
 
-    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const desktopBreakpoint = window.matchMedia('(min-width: 1024px)');
     const navLinks = Array.from(navMenu.querySelectorAll('a'));
+    let closeMenuTimeoutId = null;
+
+    const setMenuVisibility = (isHidden) => {
+        navMenu.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
+    };
 
     const handleScroll = () => {
         if (window.scrollY > 40) {
@@ -457,132 +462,129 @@ function initializeNavigation() {
     };
 
     const openMenu = () => {
-        if (mediaQuery.matches) {
+        if (desktopBreakpoint.matches) {
             return;
         }
 
-    if (navToggle && navMenu) {
-        let closeMenuTimeoutId = null;
+        if (closeMenuTimeoutId) {
+            clearTimeout(closeMenuTimeoutId);
+            closeMenuTimeoutId = null;
+        }
 
-        const openMenu = () => {
-            if (closeMenuTimeoutId) {
-                clearTimeout(closeMenuTimeoutId);
-                closeMenuTimeoutId = null;
+        navMenu.classList.remove('hidden');
+        navMenu.classList.add('flex');
+
+        requestAnimationFrame(() => {
+            navMenu.classList.add('open');
+        });
+
+        navToggle.setAttribute('aria-expanded', 'true');
+        navToggle.classList.add('is-active');
+        navBackdrop?.classList.add('is-visible');
+        document.body.classList.add('nav-open');
+        setMenuVisibility(false);
+    };
+
+    const closeMenu = (immediate = false) => {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.classList.remove('is-active');
+        navBackdrop?.classList.remove('is-visible');
+        document.body.classList.remove('nav-open');
+        setMenuVisibility(true);
+
+        const delay = immediate ? 0 : 260;
+
+        if (closeMenuTimeoutId) {
+            clearTimeout(closeMenuTimeoutId);
+        }
+
+        closeMenuTimeoutId = setTimeout(() => {
+            navMenu.classList.add('hidden');
+            navMenu.classList.remove('flex');
+            closeMenuTimeoutId = null;
+        }, delay);
+    };
+
+    const toggleMenu = () => {
+        if (desktopBreakpoint.matches) {
+            return;
+        }
+
+        const isOpen = navMenu.classList.contains('open') && !navMenu.classList.contains('hidden');
+
+        if (isOpen) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    };
+
+    navToggle.addEventListener('click', toggleMenu);
+
+    if (navBackdrop) {
+        navBackdrop.addEventListener('click', () => closeMenu());
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (!desktopBreakpoint.matches) {
+                closeMenu();
             }
+        });
+    });
 
-            navMenu.classList.remove('hidden');
-            if (!navMenu.classList.contains('flex')) {
-                navMenu.classList.add('flex');
-            }
+    document.addEventListener('click', (event) => {
+        if (desktopBreakpoint.matches) {
+            return;
+        }
 
-            requestAnimationFrame(() => {
-                navMenu.classList.add('open');
-            });
-
-            navToggle.setAttribute('aria-expanded', 'true');
-            navToggle.querySelector('.nav-toggle-bars')?.classList.add('active');
-            document.body.classList.add('nav-open');
-        };
-
-        const closeMenu = (immediate = false) => {
-            navMenu.classList.remove('open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
-            document.body.classList.remove('nav-open');
-
-            const delay = immediate ? 0 : 260;
-
-            if (closeMenuTimeoutId) {
-                clearTimeout(closeMenuTimeoutId);
-            }
-
-            closeMenuTimeoutId = setTimeout(() => {
-                navMenu.classList.add('hidden');
-                navMenu.classList.remove('flex');
-                closeMenuTimeoutId = null;
-            }, delay);
-        };
-
-        const toggleMenu = () => {
-            if (window.innerWidth >= 1024) {
-                return;
-            }
-
+        if (!nav.contains(event.target)) {
             const isOpen = navMenu.classList.contains('open') && !navMenu.classList.contains('hidden');
 
             if (isOpen) {
                 closeMenu();
-            } else {
-                openMenu();
             }
-        };
+        }
+    });
 
-        navToggle.addEventListener('click', toggleMenu);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !desktopBreakpoint.matches) {
+            const isOpen = navMenu.classList.contains('open') && !navMenu.classList.contains('hidden');
 
-        const navLinks = navMenu.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 1024) {
-                    closeMenu();
-                }
-            });
-        });
+            if (isOpen) {
+                closeMenu();
+            }
+        }
+    });
 
-        const handleDocumentClick = (event) => {
-            if (window.innerWidth >= 1024) {
-                return;
+    const syncMenuToViewport = () => {
+        if (desktopBreakpoint.matches) {
+            if (closeMenuTimeoutId) {
+                clearTimeout(closeMenuTimeoutId);
+                closeMenuTimeoutId = null;
             }
 
-            if (!nav.contains(event.target)) {
-                const isOpen = navMenu.classList.contains('open') && !navMenu.classList.contains('hidden');
+            navMenu.classList.remove('hidden', 'open');
+            navMenu.classList.add('flex');
+            navToggle.classList.remove('is-active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navBackdrop?.classList.remove('is-visible');
+            document.body.classList.remove('nav-open');
+            setMenuVisibility(false);
+        } else {
+            closeMenu(true);
+        }
+    };
 
-                if (isOpen) {
-                    closeMenu();
-                }
-            }
-        };
-
-        const handleEscapeKey = (event) => {
-            if (event.key === 'Escape' && window.innerWidth < 1024) {
-                const isOpen = navMenu.classList.contains('open') && !navMenu.classList.contains('hidden');
-
-                if (isOpen) {
-                    closeMenu();
-                }
-            }
-        };
-
-        document.addEventListener('click', handleDocumentClick);
-        document.addEventListener('keydown', handleEscapeKey);
-
-        const syncMenuState = () => {
-            const isDesktop = window.innerWidth >= 1024;
-
-            if (isDesktop) {
-                if (closeMenuTimeoutId) {
-                    clearTimeout(closeMenuTimeoutId);
-                    closeMenuTimeoutId = null;
-                }
-
-                navMenu.classList.remove('hidden');
-                if (!navMenu.classList.contains('flex')) {
-                    navMenu.classList.add('flex');
-                }
-                navMenu.classList.remove('open');
-                navToggle.setAttribute('aria-expanded', 'false');
-                navToggle.querySelector('.nav-toggle-bars')?.classList.remove('active');
-                document.body.classList.remove('nav-open');
-            } else {
-                closeMenu(true);
-            }
-        };
-
-    if (typeof mediaQuery.addEventListener === 'function') {
-        mediaQuery.addEventListener('change', syncMenuToViewport);
-    } else if (typeof mediaQuery.addListener === 'function') {
-        mediaQuery.addListener(syncMenuToViewport);
+    if (typeof desktopBreakpoint.addEventListener === 'function') {
+        desktopBreakpoint.addEventListener('change', syncMenuToViewport);
+    } else if (typeof desktopBreakpoint.addListener === 'function') {
+        desktopBreakpoint.addListener(syncMenuToViewport);
     }
 
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     syncMenuToViewport();
 }
 
